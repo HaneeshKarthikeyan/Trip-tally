@@ -17,45 +17,45 @@ import {
 const CONTRACTOR_LOADS: Record<string, string[]> = {
   "Null":["Null"],
   "KSP": ["Maize", "Rape Seed", "Soya", "Fertilizer"],
-  "TKS": ["Fertilizer"],
-  "SBT": ["Rice", "Wheat", "Fertilizer"],
-  "MP SAMY": ["Rape Seed"],
+  "TKS": ["Fertilizer", "SVM", "UFC", "IPL", "Spric", "Thirumagal","Samundeshwari"],
+  "SBT": ["Rice", "Wheat", "Fertilizer", "Maize", "Sugar", "SOYA"],
+  "MP SAMY": ["Rape Seed", "Wheat"],
   "SS":["Maize"],
   "KGS":["Sugar"],
 };
 
 const DESTINATION_RATES = [
-  { name: "Null", rate: 0 },{ name: "RGS", rate: 295 },
-  { name: "Perundurai-41", rate: 295 },{ name: "Perundurai-42", rate: 295 },{ name: "Perundurai-43", rate: 295 },{ name: "Perundurai-KK8", rate: 295 }
-  ,{ name: "SKM", rate: 200 },{ name: "KK Nagar", rate: 0 },{ name: "Thirumagal", rate: 0 },{ name: "SVM", rate: 0 },{ name: "SK Samy", rate: 0 },{ name: "Moolapalayam", rate: 90 },{ name: "Perundurai", rate: 295 },{ name: "Athani", rate: 430 }, { name: "Anthiyur", rate: 430 }, { name: "Ammapettai", rate: 445 },
-  { name: "Arachalur", rate: 370 }, { name: "Alangiyam", rate: 600 }, { name: "Alukuli", rate: 460 },
-  { name: "Avinashi", rate: 550 }, { name: "Hanumanpalli", rate: 350 }, { name: "Appakudal", rate: 410 },
-  { name: "Anaimalai", rate: 700 }, { name: "Irayamangalam", rate: 365 }, { name: "Udumalpet", rate: 650 },
-  { name: "Uthukuli (Tiruppur)", rate: 445 }, { name: "Edappadi", rate: 490 }, { name: "Ettikuttai", rate: 440 },
+  { name: "Null", rate: 0 },{ name: "RGS", rate: 300 },
+  { name: "Perundurai-41", rate: 300 },{ name: "Perundurai-42", rate: 300 },{ name: "Perundurai-43", rate: 300 },{ name: "Perundurai-KK8", rate: 300 }
+  ,{ name: "KK Nagar", rate: 0 },{ name: "Spac", rate: 325 },{ name: "Thirumagal", rate: 0 },{ name: "SVM", rate: 0 },{ name: "SK Samy", rate: 0 },{ name: "Moolapalayam", rate: 90 },{ name: "Perundurai", rate: 295 },{ name: "Tiruvachi", rate: 200 },{ name: "Athani", rate: 430 }, { name: "Anthiyur", rate: 430 }, { name: "Ammapettai", rate: 445 },
+  { name: "Arachalur", rate: 370 },{ name: "Kavindapadi", rate: 365 }, { name: "Kallipatti", rate: 465 },{ name: "Chithode", rate: 315 },{ name: "Chithar", rate: 430 },{ name: "Kundadam", rate: 550 }, { name: "Alangiyam", rate: 600 }, 
+   { name: "Jedarpalayam", rate: 430 },
+  { name: "T.N Palayam", rate: 500 },{ name: "Hanumanpalli", rate: 350 },{name: "Sivagiri", rate: 410 },{ name: "Gobi", rate: 430 }, { name: "D.G Pudur", rate: 510 }, { name: "Chennimalai", rate: 400 },{ name: "Appakudal", rate: 410 },
+  { name: "Anaimalai", rate: 700 },{ name: "Avinashi", rate: 550 }, { name: "Irayamangalam", rate: 365 }, { name: "Udumalpet", rate: 650 },
+  { name: "Uthukuli (Tiruppur)", rate: 445 },{ name: "Alukuli", rate: 460 }, { name: "Edappadi", rate: 490 }, { name: "Ettikuttai", rate: 440 },
   { name: "Erangattur", rate: 540 }, { name: "Erisanampatti", rate: 680 }, { name: "Elathur Chettipalayam", rate: 510 },
-  { name: "Ellakadai", rate: 400 }, { name: "Elumathur", rate: 390 }, { name: "Ayyansalai", rate: 540 },
+  { name: "Ellakadai", rate: 400 }, { name: "Elumathur", rate: 390 }, { name :"Ayyansalai", rate : 540 },
   { name: "Odapalli", rate: 350 }, { name: "Oddanchatram", rate: 600 }, { name: "Gangapuram", rate: 260 },
   { name: "Ganapathipalayam", rate: 360 }, { name: "Kaniyur", rate: 620 }, { name: "Kandasamypalayam", rate: 420 },
   { name: "Kapilarmalai", rate: 450 }, { name: "Karumandampalayam", rate: 390 }, { name: "Karur", rate: 510 },
-  { name: "Kavindapadi", rate: 365 }, { name: "Kallipatti", rate: 465 }, { name: "Kanakapuram", rate: 320 },
+  { name: "Kanakapuram", rate: 320 },
   { name: "Kangeyam", rate: 470 }, { name: "Kasipalayam (Gobi)", rate: 460 }, { name: "Kasiyur", rate: 460 },
   { name: "Kanjikoil", rate: 360 }, { name: "Karamadai", rate: 650 }, { name: "Kalingarayanpalayam", rate: 340 },
-  { name: "Keelvani", rate: 430 }, { name: "Gudimangalam", rate: 600 }, { name: "Kuttamuniyappan Kovil", rate: 420 },
-  { name: "Kundadam", rate: 550 }, { name: "Gunduchettipalayam", rate: 380 }, { name: "Kumaralingam", rate: 670 },
+  { name: "Keelvani", rate: 430 }, { name: "Gudimangalam", rate: 600 }, { name: "Kuttamuniyappan Kovil", rate: 420 }, { name: "Gunduchettipalayam", rate: 380 }, { name: "Kumaralingam", rate: 670 },
   { name: "Kumarapalayam", rate: 370 }, { name: "Kurumandur", rate: 480 }, { name: "Guruvareddiyur", rate: 480 },
   { name: "Kunnathur", rate: 435 }, { name: "Getticheviyur", rate: 420 }, { name: "Kemmanaickenpalayam", rate: 540 },
   { name: "Kesarimangalam", rate: 390 }, { name: "Kokkarayanpettai", rate: 360 }, { name: "Konganapuram", rate: 500 },
   { name: "Kodumudi", rate: 445 }, { name: "Koduvai", rate: 550 }, { name: "Kolumam", rate: 680 },
   { name: "Kolathur", rate: 560 }, { name: "Kolappalur", rate: 430 }, { name: "Kottur", rate: 670 },
-  { name: "Gobi", rate: 430 }, { name: "Kovai (Coimbatore)", rate: 650 }, { name: "Koneripatti", rate: 450 },
+ { name: "Kovai (Coimbatore)", rate: 650 }, { name: "Koneripatti", rate: 450 },
   { name: "Koneripatti Pirivu", rate: 430 }, { name: "Sankagiri", rate: 390 }, { name: "Sathyamangalam", rate: 510 },
   { name: "Chathiram", rate: 590 }, { name: "Chandrapuram", rate: 590 }, { name: "Sanisanthai", rate: 510 },
-  { name: "Salaipudur", rate: 445 }, { name: "Singampettai", rate: 440 }, { name: "Chithar", rate: 430 },
-  { name: "Chithalandur", rate: 450 }, { name: "Chithode", rate: 315 }, { name: "SIPCOT", rate: 385 },
-  { name: "Sivagiri", rate: 410 }, { name: "Sirumugai", rate: 650 }, { name: "Chinnapuliyur", rate: 360 },
+  { name: "Salaipudur", rate: 445 }, { name: "Singampettai", rate: 440 }, 
+  { name: "Chithalandur", rate: 450 }, { name: "SIPCOT", rate: 385 },
+  { name: "Sirumugai", rate: 650 }, { name: "Chinnapuliyur", rate: 360 },
   { name: "Chinna Valavadi", rate: 660 }, { name: "Chinniyampalayam", rate: 340 }, { name: "Sulur", rate: 650 },
   { name: "Chengapalli", rate: 450 }, { name: "Senjerimalai", rate: 600 }, { name: "Selakkaraisal", rate: 600 },
-  { name: "Chennampatti", rate: 510 }, { name: "Chennimalai", rate: 400 }, { name: "Salem", rate: 470 },
+  { name: "Chennampatti", rate: 510 }, { name: "Salem", rate: 470 },
   { name: "Salem TANFED Udayapatti", rate: 520 }, { name: "Solangapalayam", rate: 390 }, { name: "Solasiramani", rate: 380 },
   { name: "Town Local Party", rate: 300 }, { name: "Thalavaipattinam", rate: 590 }, { name: "Thalavaipettai", rate: 390 },
   { name: "Thamaraipalayam", rate: 420 }, { name: "Dharapuram", rate: 570 }, { name: "Thingalur", rate: 400 },
@@ -83,8 +83,8 @@ const DESTINATION_RATES = [
   { name: "Vijayamangalam", rate: 405 }, { name: "Veppadai", rate: 340 }, { name: "Vellakoil", rate: 490 },
   { name: "Vellankovil", rate: 425 }, { name: "Vellitiruppur", rate: 460 }, { name: "Vellode", rate: 325 },
   { name: "Veppampalayam", rate: 300 }, { name: "Vairamangalam", rate: 400 }, { name: "Jambai", rate: 385 },
-  { name: "Jedarpalayam", rate: 430 }, { name: "D.G Pudur", rate: 510 }, { name: "5. Periyapalayam", rate: 490 },
-  { name: "T.N Palayam", rate: 500 }
+   { name: "5. Periyapalayam", rate: 490 },
+  { name: "T.N Palayam", rate: 500 },{ name: "SKM", rate: 180 }
 ];
 
 // --- INTERFACES ---
@@ -100,12 +100,12 @@ interface VehicleDetails {
   permitValidUpto: string; nationalPermitNo: string; nationalPermitValidUpto: string;
   registeringAuthority: string; greenTax: string;
 }
-
 interface TripRecord {
   id: number;
   regNumber: string;
   date: string;
   billNo: string;
+  billReceived?: boolean;
   driverName: string;
   from: string;
   to: string;
@@ -227,74 +227,141 @@ interface Notification {
 
 // --- HELPERS ---
 
-const printSection = (elementId: string, title: string) => {
-  const content = document.getElementById(elementId)?.innerHTML;
-  if (!content) return;
+// Opens a blob URL in a new tab (treated as a user gesture on Android — never blocked).
+// The embedded window.onload script auto-triggers the print dialog immediately on open.
+const openPrintTab = (html: string) => {
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+};
 
-  const printWindow = window.open('', '', 'width=1200,height=800');
-  if (printWindow) {
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>${title}</title>
-          <script src="https://cdn.tailwindcss.com"></script>
-          <style>
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
-            
-            @media print {
-              @page { size: landscape; margin: 8mm; }
-              body { 
-                font-family: 'Inter', sans-serif;
-                background: white !important; 
-                padding: 0; 
-                margin: 0; 
-                -webkit-print-color-adjust: exact !important; 
-                print-color-adjust: exact !important; 
-              }
-              .no-print { display: none !important; }
-              
-              /* Ensure the grid of summary cards prints side-by-side */
-              .grid { display: grid !important; grid-template-columns: repeat(5, 1fr) !important; gap: 10px !important; margin-bottom: 20px !important; }
-              
-              /* Table styling for high density data */
-              table { width: 100% !important; border-collapse: collapse !important; table-layout: auto !important; }
-              th, td { border: 1px solid #e2e8f0 !important; padding: 4px 6px !important; font-size: 9px !important; line-height: 1.2 !important; }
-              th { background-color: #1e293b !important; color: white !important; -webkit-print-color-adjust: exact; }
-              
-              /* Force specific background colors to show */
-              .bg-blue-900 { background-color: #1e3a8a !important; color: white !important; }
-              .bg-slate-800 { background-color: #1e293b !important; color: white !important; }
-              .bg-slate-700 { background-color: #334155 !important; color: white !important; }
-              .text-green-600 { color: #16a34a !important; font-weight: bold !important; }
-              .text-red-600 { color: #dc2626 !important; font-weight: bold !important; }
-              .bg-blue-50 { background-color: #eff6ff !important; }
-            }
-          </style>
-        </head>
-        <body class="p-4">
-          <div class="flex justify-between items-center mb-4 border-b-2 border-slate-200 pb-4">
-            <div>
-              <h1 class="text-xl font-extrabold text-slate-800">${title}</h1>
-              <p class="text-[10px] text-slate-500 uppercase font-bold">Trip Tally Management System • ${new Date().toLocaleDateString()}</p>
-            </div>
-            <div class="text-right">
-              <p class="text-lg font-black text-blue-600">TRIP TALLY</p>
-            </div>
-          </div>
-          ${content}
-          <div class="mt-4 pt-4 border-t border-slate-100 text-center">
-            <p class="text-[8px] text-slate-400 italic">This is a computer generated statement. For any discrepancies, please contact the depot office.</p>
-          </div>
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
-    // 1 second delay allows Tailwind to finish processing before the print dialog opens
-    setTimeout(() => { 
-      printWindow.print(); 
-      printWindow.close(); 
-    }, 1000);
-  }
+const buildPrintHTML = (title: string, bodyHTML: string): string => {
+  const dateStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=1100"/>
+  <title>${title} — Anjaneya Transport</title>
+  <style>
+    @page { size: A4 landscape; margin: 8mm; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { width: 1100px; }
+    body { width: 1100px; font-family: Arial, sans-serif; font-size: 9px; color: #1e293b; background: #fff; }
+    .print-header { display: flex; justify-content: space-between; align-items: flex-start;
+      border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 10px; }
+    .print-header h1 { font-size: 15px; font-weight: 800; }
+    .print-header .sub { font-size: 8px; color: #94a3b8; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
+    .print-header .company { font-size: 13px; font-weight: 900; color: #2563eb; }
+    table { width: 100%; border-collapse: collapse; table-layout: auto; }
+    thead { display: table-header-group; }
+    tbody tr { page-break-inside: avoid; }
+    th, td { padding: 3px 5px; border: 1px solid #cbd5e1; font-size: 8px; white-space: nowrap; }
+    th { background: #1e293b; color: #e2e8f0; font-weight: 700; text-transform: uppercase; }
+    th[style] { background: unset; color: unset; }
+    td[style*="background"] { background: unset; }
+    td[style*="color"] { color: unset; }
+    .print-footer { margin-top: 10px; border-top: 1px solid #f1f5f9; text-align: center;
+      font-size: 7px; color: #94a3b8; font-style: italic; padding-top: 4px; }
+    button, input, select, .no-print, svg { display: none !important; }
+    .grid { display: grid; gap: 1rem; margin-bottom: 1.5rem; }
+    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .grid-cols-5 { grid-template-columns: repeat(5, minmax(0,1fr)); }
+    .grid > div { border: 1px solid #e2e8f0; border-radius: 0.75rem; padding: 1rem; }
+    tr:nth-child(even) td:not([style]) { background: #f8fafc; }
+    /* ── Header column colours ── */
+    .bg-blue-900   { background: #1e3a5f !important; }
+    .bg-slate-800  { background: #1e293b !important; }
+    .bg-slate-700  { background: #334155 !important; }
+    .bg-red-900    { background: #7f1d1d !important; }
+    .bg-emerald-900 { background: #064e3b !important; }
+    /* ── Header text colours ── */
+    .text-blue-200   { color: #bfdbfe !important; }
+    .text-red-200    { color: #fecaca !important; }
+    .text-emerald-200 { color: #a7f3d0 !important; }
+    .text-slate-300  { color: #cbd5e1 !important; }
+    .text-white      { color: #ffffff !important; }
+    /* ── Cell text colours ── */
+    .text-orange-400 { color: #fb923c !important; }
+    .text-orange-600 { color: #ea580c !important; }
+    .text-red-300    { color: #fca5a5 !important; }
+    .text-red-400    { color: #f87171 !important; }
+    .text-red-500    { color: #ef4444 !important; }
+    .text-red-600    { color: #dc2626 !important; }
+    .text-green-400  { color: #4ade80 !important; }
+    .text-green-600  { color: #16a34a !important; }
+    .text-blue-600   { color: #2563eb !important; }
+    .text-blue-700   { color: #1d4ed8 !important; }
+    .text-emerald-600 { color: #059669 !important; }
+    .text-slate-400  { color: #94a3b8 !important; }
+    .text-slate-600  { color: #475569 !important; }
+    .text-slate-700  { color: #334155 !important; }
+    .text-slate-800  { color: #1e293b !important; }
+    /* ── Cell background colours ── */
+    .bg-blue-50    { background: #eff6ff !important; }
+    .bg-red-50     { background: #fef2f2 !important; }
+    .bg-emerald-50 { background: #ecfdf5 !important; }
+    .bg-indigo-50  { background: #eef2ff !important; }
+    .bg-indigo-100 { background: #e0e7ff !important; }
+    .bg-white      { background: #ffffff !important; }
+    /* ── Border colours ── */
+    .border-l-indigo-600 { border-left-color: #4f46e5 !important; }
+    .border-slate-100 { border-color: #f1f5f9 !important; }
+    .border-blue-100  { border-color: #dbeafe !important; }
+    .border-l-4    { border-left-width: 4px !important; border-left-style: solid !important; }
+    /* ── Typography ── */
+    .font-bold     { font-weight: 700 !important; }
+    .font-extrabold { font-weight: 800 !important; }
+    .font-mono     { font-family: monospace !important; }
+    .text-center   { text-align: center !important; }
+    .text-right    { text-align: right !important; }
+    .uppercase     { text-transform: uppercase !important; }
+    .text-xs  { font-size: 0.75rem !important; }
+    .text-xl  { font-size: 1.25rem !important; }
+    .text-2xl { font-size: 1.5rem !important; }
+    /* ── Spacing & layout ── */
+    .px-2 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+    .py-1 { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; }
+    .px-4 { padding-left: 1rem !important; padding-right: 1rem !important; }
+    .py-3 { padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; }
+    .p-4  { padding: 1rem !important; }
+    .mb-6 { margin-bottom: 1.5rem !important; }
+    .gap-4 { gap: 1rem !important; }
+    .rounded-xl  { border-radius: 0.75rem !important; }
+    .rounded-md  { border-radius: 0.375rem !important; }
+    .shadow-sm   { box-shadow: 0 1px 2px rgba(0,0,0,.05) !important; }
+    .shadow-md   { box-shadow: 0 4px 6px rgba(0,0,0,.1) !important; }
+    .overflow-hidden { overflow: hidden !important; }
+    .w-full { width: 100% !important; }
+    .border { border-width: 1px !important; border-style: solid !important; }
+  </style>
+  <script>window.onload = function(){ setTimeout(function(){ window.print(); }, 500); };</script>
+</head>
+<body>
+  <div class="print-header">
+    <div>
+      <h1>${title}</h1>
+      <div class="sub">Trip Tally &bull; ${dateStr}</div>
+    </div>
+    <div class="company">ANJANEYA TRANSPORT</div>
+  </div>
+  ${bodyHTML}
+  <div class="print-footer">Computer generated statement. Contact depot for discrepancies.</div>
+</body>
+</html>`;
+};
+
+const printSection = (elementId: string, title: string) => {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+  openPrintTab(buildPrintHTML(title, element.innerHTML));
 };
 
 const DateFilter = ({ startDate, endDate, onStartChange, onEndChange }: any) => (
@@ -350,9 +417,9 @@ const AuthScreen = ({ onLogin }: { onLogin: (user: any) => void }) => {
             <div><label className="text-xs font-bold text-slate-500 uppercase mb-1 block">Username</label><div className="relative"><UserCircle className="absolute left-3 top-3 text-slate-400" size={18} /><input type="text" className="w-full border pl-10 p-2.5 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter username" value={formData.username} onChange={e => setFormData({...formData, username: e.target.value})} required /></div></div>
             {!isLogin && (<div><label className="text-xs font-bold text-slate-500 uppercase mb-1 block">Phone Number</label><input type="tel" className="w-full border p-2.5 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter phone" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} required /></div>)}
             <div><label className="text-xs font-bold text-slate-500 uppercase mb-1 block">Password</label><div className="relative"><Lock className="absolute left-3 top-3 text-slate-400" size={18} /><input type="password" className="w-full border pl-10 p-2.5 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500" placeholder="••••••••" value={formData.password} onChange={e => setFormData({...formData, password: e.target.value})} required /></div></div>
-            <button disabled={loading} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all flex items-center justify-center gap-2">{loading ? <RefreshCw className="animate-spin" size={18}/> : (isLogin ? 'Login to Dashboard' : 'Sign Up')}</button>
+            <button disabled={loading} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all flex items-center justify-center gap-2">{loading ? <RefreshCw className="animate-spin" size={18}/> : (isLogin ? 'Login to Dashboard' : '')}</button>
           </form>
-          <div className="mt-6 text-center text-sm"><span className="text-slate-500">{isLogin ? "Don't have an account?" : "Already have an account?"}</span><button onClick={() => setIsLogin(!isLogin)} className="text-blue-600 font-bold ml-1 hover:underline">{isLogin ? 'Sign Up' : 'Login'}</button></div>
+          <div className="mt-6 text-center text-sm"><span className="text-slate-500">{isLogin ? "" : "Already have an account?"}</span><button onClick={() => setIsLogin(!isLogin)} className="text-blue-600 font-bold ml-1 hover:underline">{isLogin ? '' : 'Login'}</button></div>
         </div>
       </div>
     </div>
@@ -433,7 +500,7 @@ export default function LMSApp() {
         .eq('user_id', currentUser.id)
         .order('date', { ascending: false });
 
-      if (tData) {
+if (tData) {
         setTrips(tData.map((t: any) => ({
           id: t.id,
           date: t.date,
@@ -446,7 +513,6 @@ export default function LMSApp() {
           loadType: t.load_type,
           netWeight: t.net_weight,
           expense: t.expense || 0,
-
           rate: t.rate,
           tripTotal: t.trip_total,
           driverTripPay: t.driver_trip_pay,
@@ -460,7 +526,8 @@ export default function LMSApp() {
           commissionValue: t.commission_value,
           fuelPaidDate: t.fuel_paid_date,
           contractorPaidDate: t.contractor_paid_date,
-          creditedAmount: t.credited_amount // NEW FIELD
+          creditedAmount: t.credited_amount,
+          billReceived: t.bill_received ?? false
         })));
       }
 
@@ -529,7 +596,8 @@ export default function LMSApp() {
     const deductions = (Number(tripToDelete.advance) || 0) + 
                        (Number(tripToDelete.loadingCharge) || 0) + 
                        (Number(tripToDelete.unloadingCharge) || 0) + 
-                       (Number(tripToDelete.weighbridgeCharge) || 0);
+                       (Number(tripToDelete.weighbridgeCharge) || 0) +
+                       (Number(tripToDelete.expense) || 0);
     const netAddedToWallet = (Number(tripToDelete.driverTripPay) || 0) - deductions;
 
     const driver = drivers.find(d => d.name === tripToDelete.driverName);
@@ -581,12 +649,14 @@ export default function LMSApp() {
 
     switch(currentView) {
       case "dashboard": return <DashboardView {...props} />;
-      case "trips": return <TripsView {...props} />;
+     case "trips": return <TripsView {...props} setTrips={props.setTrips} />;
       case "drivers": return <DriversView {...props} />;
+      
       case "finance": return <FinanceView {...props} />;
       case "history": return <HistoryView {...props} />;
       case "fuel": return <FuelView {...props} />; 
       case "credited": return <AmountCreditedView {...props} />;
+      case "driverHistory": return <DriverHistoryView {...props} />;
       default: return <DashboardView {...props} />;
     }
   };
@@ -601,7 +671,11 @@ export default function LMSApp() {
       {/* DESKTOP SIDEBAR */}
       <aside className="hidden md:flex flex-col w-64 bg-slate-900 text-white transition-all">
         <div className="p-6 border-b border-slate-800">
-          <h1 className="text-2xl font-bold flex items-center gap-2"><Truck className="text-blue-500" /> <span className="tracking-tight">Trip Tally</span></h1>
+          <h1 className="text-2xl font-bold flex items-center gap-2">
+    {/* Replace <Truck /> with an <img> tag */}
+    <img src="/logo.png" alt="Anjaneya Logo" className="w-8 h-8 object-contain rounded" /> 
+    <span className="tracking-tight">Anjaneya</span>
+  </h1>
           <div className="mt-4 p-3 bg-slate-800/50 rounded-xl border border-slate-700/50 backdrop-blur-md animate-in fade-in slide-in-from-left-4 duration-700">
              <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1 flex items-center gap-1">
                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Active User
@@ -615,10 +689,12 @@ export default function LMSApp() {
         <nav className="flex-1 p-4 space-y-2">
           <SidebarItem icon={<LayoutDashboard/>} label="Dashboard" active={currentView === "dashboard"} onClick={() => { setFilterReg(null); setCurrentView("dashboard"); }} />
           <SidebarItem icon={<List/>} label="Trips Log" active={currentView === "trips"} onClick={() => { setFilterReg(null); setCurrentView("trips"); }} />
+          
           <SidebarItem icon={<Users/>} label="Drivers" active={currentView === "drivers"} onClick={() => { setFilterReg(null); setCurrentView("drivers"); }} />
           <SidebarItem icon={<Wallet/>} label="Finance" active={currentView === "finance"} onClick={() => { setFilterReg(null); setCurrentView("finance"); }} />
           <SidebarItem icon={<CreditCard/>} label="Credited" active={currentView === "credited"} onClick={() => { setFilterReg(null); setCurrentView("credited"); }} /> 
           <SidebarItem icon={<Droplet/>} label="Fuel" active={currentView === "fuel"} onClick={() => { setFilterReg(null); setCurrentView("fuel"); }} />
+          <SidebarItem icon={<History/>} label="Driver History" active={currentView === "driverHistory"} onClick={() => { setFilterReg(null); setCurrentView("driverHistory"); }} />
           <SidebarItem icon={<History/>} label="History" active={currentView === "history"} onClick={() => { setFilterReg(null); setCurrentView("history"); }} />
         </nav>
         <div className="p-4 border-t border-slate-800">
@@ -629,7 +705,10 @@ export default function LMSApp() {
       <div className="flex-1 flex flex-col h-full overflow-hidden relative">
         {/* HEADER */}
         <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 shrink-0 relative">
-          <div className="md:hidden font-bold text-lg flex items-center gap-2"><Truck className="text-blue-600"/> Trip Tally</div>
+          <div className="md:hidden font-bold text-lg flex items-center gap-2">
+            <img src="/logo.png" alt="Anjaneya Logo" className="w-7 h-7 object-contain rounded"/>
+            Anjaneya
+          </div>
           <div className="hidden md:flex items-center gap-2 font-bold text-lg text-slate-700 capitalize">
             {currentView} Overview 
             {filterReg && <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full flex items-center gap-1"><Filter size={10}/> {filterReg} <button onClick={() => setFilterReg(null)}><X size={12}/></button></span>}
@@ -682,6 +761,9 @@ export default function LMSApp() {
              <button onClick={() => { setCurrentView("drivers"); setShowMobileMenu(false); }} className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-lg text-sm font-bold text-slate-700 w-full text-left">
                 <Users size={18} className="text-blue-600"/> Drivers
              </button>
+             <button onClick={() => { setCurrentView("driverHistory"); setShowMobileMenu(false); }} className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-lg text-sm font-bold text-slate-700 w-full text-left">
+        <History size={18} className="text-emerald-600"/> Driver History
+      </button>
              <button onClick={() => { setCurrentView("credited"); setShowMobileMenu(false); }} className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-lg text-sm font-bold text-slate-700 w-full text-left">
                 <CreditCard size={18} className="text-purple-600"/> Credited
              </button>
@@ -718,7 +800,52 @@ export default function LMSApp() {
 // --- SUB-COMPONENTS (Views) ---
 
 const DashboardView = ({ vehicles, setVehicles, drivers, setDrivers, transactions, setTransactions, trips, setTrips, setCurrentView, handleFilterSelect, setHistoryLogs, currentUser }: any) => {
+  const [vehicleOrder, setVehicleOrder] = useState<number[]>([]);
+  const [draggedId, setDraggedId] = useState<number | null>(null);
+  const [dragOverId, setDragOverId] = useState<number | null>(null);
   const [activeModal, setActiveModal] = useState<{ type: string; data: any; vehicleId?: number } | null>(null);
+
+  // Load saved order from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('vehicle_order');
+    if (saved) {
+      try { setVehicleOrder(JSON.parse(saved)); } catch {}
+    }
+  }, []);
+
+  // When vehicles load, init order if not set
+  useEffect(() => {
+    if (vehicles.length > 0 && vehicleOrder.length === 0) {
+      setVehicleOrder(vehicles.map((v: Vehicle) => v.id));
+    }
+  }, [vehicles]);
+
+  const orderedVehicles = vehicleOrder.length > 0
+    ? [...vehicles].sort((a: Vehicle, b: Vehicle) => {
+        const ai = vehicleOrder.indexOf(a.id);
+        const bi = vehicleOrder.indexOf(b.id);
+        if (ai === -1) return 1;
+        if (bi === -1) return -1;
+        return ai - bi;
+      })
+    : vehicles;
+
+  const handleDragStart = (id: number) => setDraggedId(id);
+  const handleDragOver = (e: React.DragEvent, id: number) => { e.preventDefault(); setDragOverId(id); };
+  const handleDrop = (targetId: number) => {
+    if (draggedId === null || draggedId === targetId) { setDraggedId(null); setDragOverId(null); return; }
+    const newOrder = [...vehicleOrder];
+    const fromIdx = newOrder.indexOf(draggedId);
+    const toIdx = newOrder.indexOf(targetId);
+    if (fromIdx === -1 || toIdx === -1) { setDraggedId(null); setDragOverId(null); return; }
+    newOrder.splice(fromIdx, 1);
+    newOrder.splice(toIdx, 0, draggedId);
+    setVehicleOrder(newOrder);
+    localStorage.setItem('vehicle_order', JSON.stringify(newOrder));
+    setDraggedId(null);
+    setDragOverId(null);
+  };
+  const handleDragEnd = () => { setDraggedId(null); setDragOverId(null); };
   const [selectedDriverForModal, setSelectedDriverForModal] = useState<Driver | null>(null);
   const [showDriverList, setShowDriverList] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
@@ -738,11 +865,10 @@ const DashboardView = ({ vehicles, setVehicles, drivers, setDrivers, transaction
     insuranceValidUpto: '', fitnessValidUpto: '', puccNo: '', puccValidUpto: '',
     permitValidUpto: '', nationalPermitNo: '', nationalPermitValidUpto: '', registeringAuthority: '', greenTax: ''
   });
-    
 const [tripForm, setTripForm] = useState({ 
   date: '', billNo: '', driverName: '', to: '', contractor: '', 
   loadType: '', netWeight: '', rate: 0, tripTotal: 0,
-  loadingCharge: '500',           // ✅ PRE-FILLED DEFAULT
+  loadingCharge: '',
   unloadingCharge: '0',
   driverTripPay: 0, 
   dieselPrice: '0', 
@@ -752,7 +878,8 @@ const [tripForm, setTripForm] = useState({
   expense: '0',
   commissionType: 'percentage' as 'percentage' | 'fixed', 
   commissionValue: '15',
-  advance: '0'
+  advance: '0',
+  billReceived: false
 });
 
     
@@ -842,7 +969,7 @@ const [tripForm, setTripForm] = useState({
       setTripForm({ 
         
         ...vehicle.currentTrip, 
-        loadingCharge: vehicle.currentTrip.loadingCharge || '500', 
+        loadingCharge: vehicle.currentTrip.loadingCharge || '', 
       weighbridgeCharge: vehicle.currentTrip.weighbridgeCharge || '130',
       commissionType: vehicle.currentTrip.commissionType || 'percentage',
       commissionValue: vehicle.currentTrip.commissionValue || '15',
@@ -899,7 +1026,7 @@ const handleDestinationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (specialDestinations.includes(value)) {
       const weight = Number(tripForm.netWeight) || 0;
       // Formula: ((weight * 45) + 30)
-      unloading = weight > 0 ? Math.round((weight * 45) + 30).toString() : "0";
+      unloading = weight > 0 ? Math.round((weight * 50) + 30).toString() : "0";
       
       // Maize rule: if load is Maize, weighbridge is 0, else 130
       weighbridge = tripForm.loadType === "Maize" ? "0" : "130";
@@ -928,7 +1055,7 @@ if (field === 'netWeight') {
   const specialDestinations = ["RGS", "Perundurai-41", "Perundurai-42", "Perundurai-43", "Perundurai-KK8"];
   if (specialDestinations.includes(updatedForm.to)) {
     const weight = Number(value) || 0;
-    updatedForm.unloadingCharge = Math.round((weight * 45) + 30).toString();
+    updatedForm.unloadingCharge = Math.round((weight * 50) + 30).toString();
   }
 }
 
@@ -936,7 +1063,7 @@ if (field === 'netWeight') {
   // --- AUTO-CALCULATE RGS UNLOADING WHEN WEIGHT CHANGES ---
   if (field === 'netWeight' && updatedForm.to === 'RGS') {
     const weight = Number(value) || 0;
-    updatedForm.unloadingCharge = Math.round((45 * weight) + 30).toString();
+    updatedForm.unloadingCharge = Math.round((50 * weight) + 30).toString();
   }
 
   // --- REST OF YOUR EXISTING LOGIC ---
@@ -953,7 +1080,7 @@ if (field === 'netWeight') {
         driverTripPay: 0, advance: '0'
       };
     } else if (value !== '' && tripForm.billNo === '0') {
-      updatedForm.loadingCharge = '500';
+      updatedForm.loadingCharge = '';
       updatedForm.weighbridgeCharge = '130';
     }
   }
@@ -1000,8 +1127,7 @@ if (field === 'netWeight') {
       setIsSubmitting(false);
       return; 
     }
-
-    const dbTrip = {
+const dbTrip = {
         date: tripForm.date, 
         bill_no: tripForm.billNo, 
         vehicle_reg: currentVehicle.regNumber, 
@@ -1022,9 +1148,10 @@ if (field === 'netWeight') {
         diesel_liters: Number(tripForm.dieselLiters) || 0, 
         diesel_price: Number(tripForm.dieselPrice) || 0, 
         driver_trip_pay: grossPay, 
-        final_pay: finalPay, // This uses the new formula
+        final_pay: finalPay,
         commission_type: tripForm.commissionType, 
         commission_value: tripForm.commissionValue,
+        bill_received: tripForm.billReceived,
         status: 'active'
     };
     if (editingTripId) {
@@ -1071,9 +1198,32 @@ if (field === 'netWeight') {
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       <div className="flex justify-between items-center"><h2 className="text-lg font-bold">Fleet Status</h2><button onClick={() => setIsAdding(true)} className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 shadow-md hover:bg-blue-700"><Plus size={16}/> Add Lorry</button></div>
-      <div className="space-y-4">{vehicles.map((vehicle: Vehicle) => (<VehicleCard key={vehicle.id} data={vehicle} onAction={(type) => openActionModal(type, vehicle)} onFilter={handleFilterSelect} />))}</div>
+      <div className="space-y-4">
+        {orderedVehicles.map((vehicle: Vehicle) => (
+          <div
+            key={vehicle.id}
+            draggable
+            onDragStart={() => handleDragStart(vehicle.id)}
+            onDragOver={(e) => handleDragOver(e, vehicle.id)}
+            onDrop={() => handleDrop(vehicle.id)}
+            onDragEnd={handleDragEnd}
+            className={`transition-all duration-200 rounded-2xl ${
+              draggedId === vehicle.id ? 'opacity-40 scale-95' : 'opacity-100'
+            } ${
+              dragOverId === vehicle.id && draggedId !== vehicle.id
+                ? 'ring-2 ring-blue-400 ring-offset-2' : ''
+            }`}
+          >
+            <VehicleCard
+              data={vehicle}
+              onAction={(type) => openActionModal(type, vehicle)}
+              onFilter={handleFilterSelect}
+            />
+          </div>
+        ))}
+      </div>
       
-      {activeModal?.type === 'details' && <DetailsModal data={activeModal.data} onClose={() => setActiveModal(null)} />}
+      {activeModal?.type === 'details' && <DetailsModal data={activeModal.data} onClose={() => setActiveModal(null)} setVehicles={setVehicles} />}
       
       {showDriverList && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
@@ -1098,6 +1248,15 @@ if (field === 'netWeight') {
             )
           }
         >
+          {/* Selected Vehicle Banner */}
+          {activeModal?.data?.regNumber && (
+            <div className="mb-3 flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-sm">
+              <Truck size={16} className="shrink-0"/>
+              <span className="text-xs font-bold uppercase tracking-wide">Vehicle:</span>
+              <span className="text-base font-extrabold tracking-widest">{activeModal.data.regNumber}</span>
+            </div>
+          )}
+
           {showEditSearch && (
              <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg animate-in slide-in-from-top-2">
                 <h4 className="text-xs font-bold text-yellow-800 uppercase mb-2">Search Trip to Edit</h4>
@@ -1114,7 +1273,9 @@ if (field === 'netWeight') {
                <Input label="Bill Number *" value={tripForm.billNo} onChange={(e) => handleInputChange('billNo', e.target.value)} required error={errors.includes('billNo')} />
               </div>
               
-              <div className="grid grid-cols-2 gap-3">
+              {/* --- DRIVER SECTION --- */}
+              <h4 className="font-bold text-xs text-blue-600 uppercase mt-2">Driver</h4>
+              <div className="grid grid-cols-2 gap-3 bg-slate-50 p-2 rounded border border-slate-100">
                <div>
                   <label className={`text-xs font-bold uppercase mb-1 block ${errors.includes('driverName') ? 'text-red-500' : 'text-slate-500'}`}>Driver Name *</label>
                   <div className="relative">
@@ -1125,8 +1286,11 @@ if (field === 'netWeight') {
                <Input label="Advance (Driver) *" type="number" value={tripForm.advance} onChange={(e) => handleInputChange('advance', e.target.value)} error={errors.includes('advance')} />
               </div>
               
-              <div>
-                <label className="text-xs font-bold text-slate-500 uppercase mb-1 block">Contractor *</label>
+              {/* --- LOAD SECTION --- */}
+              <h4 className="font-bold text-xs text-blue-600 uppercase mt-2">Load</h4>
+              <div className="bg-slate-50 p-2 rounded border border-slate-100 space-y-3">
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase mb-1 block">Contractor *</label>
                 {isCustomContractor ? (
                   <div className="flex gap-2">
                     <input type="text" placeholder="Custom Contractor" className="w-full border p-2.5 rounded-lg text-sm border-blue-500 bg-blue-50/20" value={tripForm.contractor} onChange={(e) => handleInputChange('contractor', e.target.value)} required />
@@ -1156,64 +1320,43 @@ if (field === 'netWeight') {
                   </select>
                 )}
               </div>
+              </div>{/* end LOAD section */}
 
-              <div className="grid grid-cols-2 gap-3">
-               <div>
-                 <label className="text-xs font-bold text-slate-500 uppercase mb-1 block">To (Destination) *</label>
-                 {isCustomDestination ? (
-                    <div className="flex gap-2">
-                      <input type="text" placeholder="Custom Destination" className="w-full border p-2.5 rounded-lg text-sm border-blue-500 bg-blue-50/20" value={tripForm.to} onChange={(e) => handleInputChange('to', e.target.value)} required />
-                      <button type="button" onClick={() => { setIsCustomDestination(false); handleInputChange('to', ''); setTripForm(prev => ({...prev, rate: 0})); }} className="text-slate-400 hover:text-red-500 p-1"><X size={16}/></button>
-                    </div>
-                 ) : (
-                   <select className={`w-full border p-2.5 rounded-lg text-sm bg-white ${errors.includes('to') ? 'border-red-500' : 'border-slate-300'}`} value={tripForm.to} onChange={handleDestinationChange} required>
-                     <option value="">Select</option>
-                     {DESTINATION_RATES.map((dest, index) => (<option key={index} value={dest.name}>{dest.name}</option>))}
-                     <option value="REQ_CUSTOM" className="font-bold text-blue-600">+ Custom Destination</option>
-                   </select>
-                 )}
-               </div>
-               <Input label="Cost Per Ton (₹)" type="number" value={tripForm.rate} onChange={(e) => handleInputChange('rate', e.target.value)} required />
+              {/* --- TO (DESTINATION) — full width like Contractor/Load Type --- */}
+              <div>
+                <label className="text-xs font-bold text-slate-500 uppercase mb-1 block">To (Destination) *</label>
+                {isCustomDestination ? (
+                  <div className="flex gap-2">
+                    <input type="text" placeholder="Custom Destination" className="w-full border p-2.5 rounded-lg text-sm border-blue-500 bg-blue-50/20" value={tripForm.to} onChange={(e) => handleInputChange('to', e.target.value)} required />
+                    <button type="button" onClick={() => { setIsCustomDestination(false); handleInputChange('to', ''); setTripForm(prev => ({...prev, rate: 0})); }} className="text-slate-400 hover:text-red-500 p-1"><X size={16}/></button>
+                  </div>
+                ) : (
+                  <select className={`w-full border p-2.5 rounded-lg text-sm bg-white ${errors.includes('to') ? 'border-red-500' : 'border-slate-300'}`} value={tripForm.to} onChange={handleDestinationChange} required>
+                    <option value="">Select</option>
+                    {DESTINATION_RATES.map((dest, index) => (<option key={index} value={dest.name}>{dest.name}</option>))}
+                    <option value="REQ_CUSTOM" className="font-bold text-blue-600">+ Custom Destination</option>
+                  </select>
+                )}
               </div>
 
+              {/* --- NET WEIGHT + COST PER TON — equal side by side --- */}
               <div className="grid grid-cols-2 gap-3">
-                 <Input 
-  label="Extra Expense (₹)" 
-  type="number" 
-  value={tripForm.expense} 
-  onChange={(e) => handleInputChange('expense', e.target.value)} 
-  placeholder="0"
-/>
-
-                 <Input label="Net Weight *" type="number" value={tripForm.netWeight} onChange={(e) => handleInputChange('netWeight', e.target.value)} required error={errors.includes('netWeight')} />
+                <Input label="Net Weight *" type="number" value={tripForm.netWeight} onChange={(e) => handleInputChange('netWeight', e.target.value)} required error={errors.includes('netWeight')} />
+                <Input label="Cost Per Ton (₹)" type="number" value={tripForm.rate} onChange={(e) => handleInputChange('rate', e.target.value)} required />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                 <Input label="Weighbridge Charge *" type="number" value={tripForm.weighbridgeCharge} onChange={(e) => handleInputChange('weighbridgeCharge', e.target.value)} error={errors.includes('weighbridgeCharge')} />
-                 <div></div>
+              {/* --- LABOUR CHARGES --- */}
+              <h4 className="font-bold text-xs text-blue-600 uppercase mt-2">Labour Charges</h4>
+              <div className="grid grid-cols-2 gap-3 bg-slate-50 p-2 rounded border border-slate-100">
+                <Input label="Loading Charge *" type="number" value={tripForm.loadingCharge} onChange={(e) => handleInputChange('loadingCharge', e.target.value)} />
+                <Input label="Unloading Charge *" type="number" value={tripForm.unloadingCharge} onChange={(e) => handleInputChange('unloadingCharge', e.target.value)} />
               </div>
 
-             
-              
-              {/* --- LABOUR CHARGES SECTION --- */}
-{/* --- LABOUR CHARGES SECTION --- */}
-{/* --- LABOUR CHARGES --- */}
-{/* --- LABOUR CHARGES SECTION --- */}
-<h4 className="font-bold text-xs text-blue-600 uppercase mt-2">Labour Charges</h4>
-<div className="grid grid-cols-2 gap-3 bg-slate-50 p-2 rounded border border-slate-100">
-  <Input 
-    label="Loading Charge *" 
-    type="number" 
-    value={tripForm.loadingCharge} 
-    onChange={(e) => handleInputChange('loadingCharge', e.target.value)} 
-  />
-  <Input 
-    label="Unloading Charge *" 
-    type="number" 
-    value={tripForm.unloadingCharge} 
-    onChange={(e) => handleInputChange('unloadingCharge', e.target.value)} 
-  />
-</div>
+              {/* --- NET WEIGHT + EXTRA EXPENSE — equal side by side --- */}
+              <div className="grid grid-cols-2 gap-3">
+                <Input label="Weighbridge Charge *" type="number" value={tripForm.weighbridgeCharge} onChange={(e) => handleInputChange('weighbridgeCharge', e.target.value)} error={errors.includes('weighbridgeCharge')} />
+                <Input label="Extra Expense (₹)" type="number" value={tripForm.expense} onChange={(e) => handleInputChange('expense', e.target.value)} placeholder="0" />
+              </div>
 
 {/* --- FUELS (Kept below Labour Charges) --- */}
 <h4 className="font-bold text-xs text-blue-600 uppercase mt-4">Fuels</h4>
@@ -1243,12 +1386,26 @@ if (field === 'netWeight') {
                  </div>
                  <div className="flex justify-between items-center pt-2 border-t border-slate-200">
                     <span className="text-sm font-bold text-slate-600">Calculated Pay:</span>
-                    <span className="text-lg font-bold text-green-600">₹ {tripForm.driverTripPay.toLocaleString()}</span>
+                    <span className="text-lg font-bold text-green-600">₹ {tripForm.driverTripPay.toLocaleString('en-IN')}</span>
                  </div>
               </div>
-              <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 flex justify-between items-center"><div className="flex items-center gap-2 text-blue-800"><Calculator size={16}/> <span className="text-xs font-bold uppercase">Total Rent (Auto)</span></div><span className="text-lg font-bold text-slate-900">₹ {tripForm.tripTotal.toLocaleString()}</span></div>
-              <button disabled={isSubmitting} type="submit" className={`w-full text-white py-3 rounded-lg font-bold mt-2 ${isSubmitting ? 'bg-slate-400' : (editingTripId ? 'bg-orange-600 hover:bg-orange-700' : 'bg-blue-600 hover:bg-blue-700')}`}>{isSubmitting ? 'Saving...' : (editingTripId ? 'Update Edited Details' : 'Save Trip & Update Rent')}</button>
-          </form>
+           <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 flex justify-between items-center"><div className="flex items-center gap-2 text-blue-800"><Calculator size={16}/> <span className="text-xs font-bold uppercase">Total Rent (Auto)</span></div><span className="text-lg font-bold text-slate-900">₹ {tripForm.tripTotal.toLocaleString('en-IN')}</span></div>
+              
+              <div className={`flex items-center gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${tripForm.billReceived ? 'bg-green-50 border-green-400' : 'bg-red-50 border-red-300'}`} onClick={() => setTripForm(prev => ({...prev, billReceived: !prev.billReceived}))}>
+                <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${tripForm.billReceived ? 'bg-green-500 border-green-500' : 'border-red-400 bg-white'}`}>
+                  {tripForm.billReceived && <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                </div>
+                <div>
+                  <div className={`text-sm font-bold ${tripForm.billReceived ? 'text-green-700' : 'text-red-600'}`}>
+                    {tripForm.billReceived ? '✓ Bill Received' : 'Bill Not Received'}
+                  </div>
+                  <div className="text-[10px] text-slate-500">
+                    {tripForm.billReceived ? 'Trip will appear normally in logs' : 'Trip will be highlighted red in logs'}
+                  </div>
+                </div>
+              </div>
+
+              <button disabled={isSubmitting} type="submit" className={`w-full text-white py-3 rounded-lg font-bold mt-2 ${isSubmitting ? 'bg-slate-400' : (editingTripId ? 'bg-orange-600 hover:bg-orange-700' : 'bg-blue-600 hover:bg-blue-700')}`}>{isSubmitting ? 'Saving...' : (editingTripId ? 'Update Edited Details' : 'Save Trip & Update Rent')}</button>     </form>
         </ModalWrapper>
       )}
 
@@ -1303,7 +1460,115 @@ if (field === 'netWeight') {
 const AmountCreditedView = ({ trips, setTrips, handleDeleteTrip }: any) => {
   const [selectedContractor, setSelectedContractor] = useState<string | null>(null);
   const [selectedLoadType, setSelectedLoadType] = useState<string | null>(null);
+  const [routeSearch, setRouteSearch] = useState('');
+  const [selectedRoute, setSelectedRoute] = useState<string | null>(null);
+  const [selectedPrintIds, setSelectedPrintIds] = useState<Set<number>>(new Set());
 
+  const togglePrintSelect = (id: number) => {
+    setSelectedPrintIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+
+  const handlePrintSelected = (title: string) => {
+    // Filter which trips to include
+    const tripsToPrint = selectedPrintIds.size > 0
+      ? displayTrips.filter((t: TripRecord) => selectedPrintIds.has(t.id))
+      : displayTrips;
+
+    const unpaidTotal = tripsToPrint
+      .filter((t: TripRecord) => !t.contractorPaidDate)
+      .reduce((s: number, t: TripRecord) => s + (Number(t.tripTotal) || 0), 0);
+    const paidTotal = tripsToPrint
+      .filter((t: TripRecord) => !!t.contractorPaidDate)
+      .reduce((s: number, t: TripRecord) => s + (Number(t.tripTotal) || 0), 0);
+
+    const rows = tripsToPrint.map((trip: TripRecord) => `
+      <tr>
+        <td>${trip.date}</td>
+        <td style="font-weight:700;">${trip.billNo}</td>
+        <td style="color:#2563eb;font-weight:700;">${trip.regNumber}</td>
+        <td>${trip.from} ➔ ${trip.to}</td>
+        <td style="font-weight:700;">${trip.netWeight}</td>
+        <td>₹${trip.rate}</td>
+        <td style="font-weight:700;">₹ ${Number(trip.tripTotal).toLocaleString('en-IN')}</td>
+      </tr>
+    `).join('');
+
+    const printContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=1100"/>
+        <title>${title}</title>
+        <style>
+          @page { size: A4 landscape; margin: 8mm; }
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          html { width: 1100px; }
+          body { width: 1100px; font-family: Arial, sans-serif; font-size: 9px; color: #1e293b; background: #fff; }
+          .header { display: flex; justify-content: space-between; align-items: flex-start;
+            border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 10px; }
+          .header h1 { font-size: 14px; font-weight: 800; }
+          .header .sub { font-size: 7px; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-top: 2px; }
+          .header .company { font-size: 12px; font-weight: 900; color: #2563eb; }
+          .summary { display: flex; gap: 10px; margin-bottom: 8px; }
+          .summary div { flex: 1; border: 1px solid #e2e8f0; border-radius: 6px; padding: 5px 8px; }
+          .summary .label { font-size: 7px; font-weight: 700; text-transform: uppercase; }
+          .summary .val { font-size: 13px; font-weight: 800; }
+          .unpaid .label { color: #dc2626; } .unpaid .val { color: #1e293b; }
+          .paid .label { color: #16a34a; } .paid .val { color: #1e293b; }
+          .grand .label { color: #2563eb; } .grand .val { color: #1e293b; }
+          table { width: 100%; border-collapse: collapse; }
+          thead { display: table-header-group; }
+          th { background: #1e293b; color: #e2e8f0; padding: 8px 16px; font-size: 9px;
+               font-weight: 700; text-transform: uppercase; border: 1px solid #334155; text-align: left; }
+          th[style] { background: unset; color: unset; }
+          td { padding: 6px 16px; font-size: 9px; border: 1px solid #e2e8f0; }
+          td[style*="background"] { background: unset; }
+          td[style*="color"] { color: unset; }
+          tbody tr { page-break-inside: avoid; }
+          tbody tr:nth-child(even) td:not([style]) { background: #f8fafc; }
+          .footer { margin-top: 8px; text-align: center; font-size: 7px; color: #94a3b8; font-style: italic; border-top: 1px solid #f1f5f9; padding-top: 4px; }
+        </style>
+        <script>window.onload = function(){ setTimeout(function(){ window.print(); }, 500); };</script>
+      </head>
+      <body>
+        <div class="header">
+          <div>
+            <h1>${title}</h1>
+            <div class="sub">TRIP TALLY &bull; ${new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
+          </div>
+          <div class="company">ANJANEYA TRANSPORT</div>
+        </div>
+        <div class="summary">
+          <div class="unpaid"><div class="label">Unpaid Total</div><div class="val">₹${unpaidTotal.toLocaleString('en-IN')}</div><div class="label">${tripsToPrint.filter((t: TripRecord) => !t.contractorPaidDate).length} trips pending</div></div>
+          <div class="paid"><div class="label">Paid Total</div><div class="val">₹${paidTotal.toLocaleString('en-IN')}</div></div>
+          <div class="grand"><div class="label">Grand Total</div><div class="val">₹${(unpaidTotal + paidTotal).toLocaleString('en-IN')}</div></div>
+        </div>
+        <div style="margin-bottom:6px; font-size:9px; font-weight:700; color:#334155;">
+          Trips: ${selectedContractor} - ${selectedLoadType} &nbsp;
+          <span style="background:#dbeafe;color:#1d4ed8;padding:2px 6px;border-radius:10px;font-size:8px;">${tripsToPrint.length} Records</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Trip Date</th><th>Bill No</th><th>Vehicle</th><th>Route</th>
+              <th>Net Wt</th><th>Rate</th><th>Total Rent</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <div class="footer">Computer generated statement. Contact depot for discrepancies.</div>
+      </body>
+      </html>
+    `;
+
+    // Open blob URL in new tab — works on both desktop and Android without popup blocker
+    openPrintTab(printContent);
+  };
   // 1. DATA PREPARATION
   // A. Get all trips for the selected contractor (EXCLUDING Bill No 0 STRICTLY)
   const contractorTrips = trips.filter((t: TripRecord) => t.contractor === selectedContractor && String(t.billNo) !== "0");
@@ -1359,14 +1624,21 @@ const AmountCreditedView = ({ trips, setTrips, handleDeleteTrip }: any) => {
         <div className="max-w-7xl mx-auto space-y-6">
             <h2 className="text-lg font-bold text-slate-700">Select Contractor</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {Object.keys(CONTRACTOR_LOADS).map((contractor) => (
-                <div key={contractor} onClick={() => setSelectedContractor(contractor)} className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-blue-400 cursor-pointer transition-all hover:shadow-md group">
-                    <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-3 group-hover:bg-blue-600 group-hover:text-white transition-colors"><Building2 size={20}/></div>
-                    <h3 className="font-bold text-lg text-slate-800">{contractor}</h3>
-                    <p className="text-xs text-slate-500 mt-1">View Loads</p>
-                </div>
-            ))}
-            </div>
+{Object.keys(CONTRACTOR_LOADS).map((contractor) => {
+    const cTrips = trips.filter((t: TripRecord) => t.contractor === contractor && String(t.billNo) !== "0");
+    const cUnpaidTrips = cTrips.filter((t: TripRecord) => !t.contractorPaidDate);
+    const cUnpaid = cUnpaidTrips.length;
+    const cUnpaidAmount = cUnpaidTrips.reduce((sum: number, t: TripRecord) => sum + (Number(t.tripTotal) || 0), 0);
+    return (
+        <div key={contractor} onClick={() => setSelectedContractor(contractor)} className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-blue-400 cursor-pointer transition-all hover:shadow-md group">
+            <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-3 group-hover:bg-blue-600 group-hover:text-white transition-colors"><Building2 size={20}/></div>
+            <h3 className="font-bold text-lg text-slate-800">{contractor}</h3>
+            <p className={`text-xs mt-1 font-bold ${cUnpaid > 0 ? 'text-red-500' : 'text-slate-400'}`}>{cUnpaid} Unpaid Trips</p>
+            <p className={`text-xs mt-0.5 font-bold ${cUnpaid > 0 ? 'text-red-600' : 'text-emerald-700'}`}>₹ {cUnpaidAmount.toLocaleString('en-IN')}</p>
+        </div>
+    );
+})}
+</div>
         </div>
       );
   }
@@ -1385,14 +1657,19 @@ const AmountCreditedView = ({ trips, setTrips, handleDeleteTrip }: any) => {
             ) : (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {uniqueLoads.map((load: string) => {
-                        const count = contractorTrips.filter((t:any) => t.loadType === load).length;
-                        return (
-                            <div key={load} onClick={() => setSelectedLoadType(load)} className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition-all hover:shadow-md group">
-                                <div className="w-10 h-10 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 mb-3 group-hover:bg-indigo-600 group-hover:text-white transition-colors"><Package size={20}/></div>
-                                <h3 className="font-bold text-lg text-slate-800">{load}</h3>
-                                <p className={`text-xs mt-1 ${count > 0 ? 'text-blue-600 font-bold' : 'text-slate-400'}`}>{count} Trips Records</p>
-                            </div>
-                        );
+                        const loadTrips = contractorTrips.filter((t:any) => t.loadType === load);
+const unpaidCount = loadTrips.filter((t:any) => !t.contractorPaidDate).length;
+const unpaidTotal = loadTrips.filter((t:any) => !t.contractorPaidDate).reduce((sum:number, t:any) => sum + (Number(t.tripTotal) || 0), 0);
+const paidTotal = loadTrips.filter((t:any) => !!t.contractorPaidDate).reduce((sum:number, t:any) => sum + (Number(t.tripTotal) || 0), 0);
+return (
+    <div key={load} onClick={() => setSelectedLoadType(load)} className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 hover:border-indigo-400 cursor-pointer transition-all hover:shadow-md group">
+        <div className="w-10 h-10 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 mb-3 group-hover:bg-indigo-600 group-hover:text-white transition-colors"><Package size={20}/></div>
+        <h3 className="font-bold text-lg text-slate-800">{load}</h3>
+        <p className={`text-xs mt-1 ${unpaidCount > 0 ? 'text-red-600 font-bold' : 'text-slate-400'}`}>{unpaidCount} Unpaid Trips</p>
+        <p className="text-xs mt-0.5 text-red-600 font-bold">Unpaid: ₹ {unpaidTotal.toLocaleString('en-IN')}</p>
+        <p className="text-xs mt-0.5 text-emerald-700 font-bold">Paid: ₹ {paidTotal.toLocaleString('en-IN')}</p>
+    </div>
+);
                     })}
                 </div>
             )}
@@ -1400,25 +1677,168 @@ const AmountCreditedView = ({ trips, setTrips, handleDeleteTrip }: any) => {
       );
   }
 
+  // --- ROUTE FILTER STATE ---
+  
+  // Get unique routes from finalTrips
+  const uniqueRoutes = Array.from(new Set(finalTrips.map((t: TripRecord) => t.to).filter(Boolean))) as string[];
+  const filteredRouteOptions = uniqueRoutes.filter(r => r.toLowerCase().includes(routeSearch.toLowerCase()));
+
+  // Apply route filter to trips
+  const displayTrips = selectedRoute ? finalTrips.filter((t: TripRecord) => t.to === selectedRoute) : finalTrips;
+
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-2">
+      {/* BREADCRUMB + PRINT */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <div className="flex items-center gap-2 flex-wrap">
             <button onClick={() => setSelectedContractor(null)} className="text-sm font-bold text-slate-400 hover:text-slate-600">Contractors</button>
             <span className="text-slate-300">/</span>
             <button onClick={() => setSelectedLoadType(null)} className="text-sm font-bold text-slate-400 hover:text-slate-600">{selectedContractor}</button>
             <span className="text-slate-300">/</span>
             <span className="text-sm font-bold text-blue-600">{selectedLoadType}</span>
+            {selectedRoute && (
+              <>
+                <span className="text-slate-300">/</span>
+                <span className="text-sm font-bold text-emerald-600">{selectedRoute}</span>
+              </>
+            )}
+        </div>
+        <div className="flex items-center gap-2">
+          {selectedPrintIds.size > 0 && (
+            <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded border border-blue-200">
+              {selectedPrintIds.size} selected
+            </span>
+          )}
+          <button
+            onClick={() => handlePrintSelected(`${selectedContractor} - ${selectedLoadType}${selectedRoute ? ` - ${selectedRoute}` : ''} | Payment Report`)}
+            className="flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg font-bold text-sm shadow-md transition-all active:scale-95 w-full sm:w-auto justify-center"
+          >
+            <Printer size={16}/> {selectedPrintIds.size > 0 ? `Print ${selectedPrintIds.size} Selected` : 'Print All'}
+          </button>
         </div>
       </div>
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
+
+      {/* ROUTE SEARCH BAR */}
+      <div className="bg-white border border-slate-200 rounded-xl p-3 shadow-sm">
+        <div className="flex items-center gap-2 mb-2">
+          <Filter size={14} className="text-slate-400"/>
+          <span className="text-xs font-bold text-slate-600 uppercase">Filter by Route</span>
+          {selectedRoute && (
+            <button
+              onClick={() => { setSelectedRoute(null); setRouteSearch(''); }}
+              className="ml-auto flex items-center gap-1 text-xs text-red-500 hover:text-red-700 font-bold bg-red-50 px-2 py-1 rounded"
+            >
+              <X size={12}/> Clear
+            </button>
+          )}
+        </div>
+        <input
+          type="text"
+          placeholder="Search route (e.g. RGS, Perundurai...)"
+          value={routeSearch}
+          onChange={(e) => { setRouteSearch(e.target.value); setSelectedRoute(null); }}
+          className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-400 mb-2"
+        />
+        {routeSearch && filteredRouteOptions.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-1">
+            {filteredRouteOptions.map((route) => {
+              const rTrips = finalTrips.filter((t: TripRecord) => t.to === route);
+              const rUnpaid = rTrips.filter((t: TripRecord) => !t.contractorPaidDate).length;
+              const rTotal = rTrips.reduce((sum: number, t: TripRecord) => sum + (Number(t.tripTotal) || 0), 0);
+              return (
+                <button
+                  key={route}
+                  onClick={() => { setSelectedRoute(route); setRouteSearch(''); }}
+                  className="flex flex-col items-start bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-400 rounded-lg px-3 py-2 transition-all text-left"
+                >
+                  <span className="text-sm font-bold text-slate-800">{route}</span>
+                  <div className="flex gap-2 mt-0.5">
+                    <span className={`text-[10px] font-bold ${rUnpaid > 0 ? 'text-red-500' : 'text-slate-400'}`}>{rUnpaid} unpaid</span>
+                    <span className="text-[10px] font-bold text-emerald-600">₹{rTotal.toLocaleString('en-IN')}</span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        )}
+        {routeSearch && filteredRouteOptions.length === 0 && (
+          <p className="text-xs text-slate-400 mt-1">No routes found matching "{routeSearch}"</p>
+        )}
+        {/* Show all route chips when no search */}
+        {!routeSearch && (
+          <div className="flex flex-wrap gap-2">
+            {uniqueRoutes.map((route) => {
+              const rTrips = finalTrips.filter((t: TripRecord) => t.to === route);
+              const rUnpaid = rTrips.filter((t: TripRecord) => !t.contractorPaidDate).length;
+              return (
+                <button
+                  key={route}
+                  onClick={() => setSelectedRoute(route)}
+                  className={`text-xs font-bold px-3 py-1.5 rounded-full border transition-all ${
+                    selectedRoute === route
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'bg-slate-100 text-slate-700 border-slate-200 hover:border-blue-400 hover:bg-blue-50'
+                  }`}
+                >
+                  {route} {rUnpaid > 0 && <span className={selectedRoute === route ? 'text-blue-200' : 'text-red-500'}>({rUnpaid})</span>}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* Unpaid Summary Stats */}
+      {(() => {
+        const unpaidTrips = displayTrips.filter((t: TripRecord) => !t.contractorPaidDate);
+        const unpaidTotal = unpaidTrips.reduce((sum: number, t: TripRecord) => sum + (Number(t.tripTotal) || 0), 0);
+        const paidTotal = displayTrips.filter((t: TripRecord) => !!t.contractorPaidDate).reduce((sum: number, t: TripRecord) => sum + (Number(t.tripTotal) || 0), 0);
+        return (
+          <div id="credited-print-area">
+            {/* Summary Cards - visible on screen and in print */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+              <div className="bg-red-50 border border-red-100 p-4 rounded-xl flex md:flex-col items-center md:items-start justify-between md:justify-start gap-2">
+                <div className="text-red-600 font-bold text-xs uppercase">Unpaid Total</div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-sm font-bold text-red-400">₹</span>
+                  <span className="text-xl font-bold text-slate-800">{unpaidTotal.toLocaleString('en-IN')}</span>
+                </div>
+                <div className="text-xs text-red-400 md:mt-1">{unpaidTrips.length} trips pending</div>
+              </div>
+              <div className="bg-green-50 border border-green-100 p-4 rounded-xl flex md:flex-col items-center md:items-start justify-between md:justify-start gap-2">
+                <div className="text-green-600 font-bold text-xs uppercase">Paid Total</div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-sm font-bold text-green-400">₹</span>
+                  <span className="text-xl font-bold text-slate-800">{paidTotal.toLocaleString('en-IN')}</span>
+                </div>
+              </div>
+              <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl flex md:flex-col items-center md:items-start justify-between md:justify-start gap-2">
+                <div className="text-blue-600 font-bold text-xs uppercase">Grand Total</div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-sm font-bold text-blue-400">₹</span>
+                  <span className="text-xl font-bold text-slate-800">{(unpaidTotal + paidTotal).toLocaleString('en-IN')}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Table */}
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
           <div className="p-4 border-b border-slate-100 bg-slate-50 flex justify-between">
              <h3 className="font-bold text-slate-700">Trips: {selectedContractor} - {selectedLoadType}</h3>
-             <span className="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-full">{finalTrips.length} Records</span>
+             <span className="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-full">{displayTrips.length} Records{selectedRoute ? ` · ${selectedRoute}` : ''}</span>
           </div>
           <table className="w-full text-sm text-left whitespace-nowrap">
              <thead className="bg-slate-50 text-slate-500 font-bold uppercase text-xs">
                 <tr>
+                   <th className="px-4 py-3 text-center">
+                     <input type="checkbox" className="rounded" 
+                       checked={selectedPrintIds.size === displayTrips.length && displayTrips.length > 0}
+                       onChange={() => {
+                         if (selectedPrintIds.size === displayTrips.length) setSelectedPrintIds(new Set());
+                         else setSelectedPrintIds(new Set(displayTrips.map((t: TripRecord) => t.id)));
+                       }}
+                     />
+                   </th>
                    <th className="px-4 py-3">Trip Date</th>
                    <th className="px-4 py-3">Bill No</th>
                    <th className="px-4 py-3">Vehicle</th>
@@ -1429,22 +1849,25 @@ const AmountCreditedView = ({ trips, setTrips, handleDeleteTrip }: any) => {
                    <th className="px-4 py-3 bg-blue-50 text-blue-800">Credited Amount</th>
                    <th className="px-4 py-3 text-center">Paid?</th>
                    <th className="px-4 py-3">Received Date</th>
-                   <th className="px-4 py-3 text-center">Action</th>
+                   <th className="px-4 py-3 text-center no-print">Action</th>
                 </tr>
              </thead>
              <tbody className="divide-y divide-slate-100">
-                {finalTrips.length === 0 ? (
-                   <tr><td colSpan={11} className="p-6 text-center text-slate-400">No trips recorded for {selectedLoadType}.</td></tr>
+                {displayTrips.length === 0 ? (
+                   <tr><td colSpan={12} className="p-6 text-center text-slate-400">No trips recorded{selectedRoute ? ` for route: ${selectedRoute}` : ` for ${selectedLoadType}`}.</td></tr>
                 ) : (
-                   finalTrips.map((trip: TripRecord) => (
-                      <tr key={trip.id} className={`transition-all duration-500 ${trip.contractorPaidDate ? "bg-green-50/50 text-slate-400" : "bg-white"}`}>
+                   displayTrips.map((trip: TripRecord) => (
+                      <tr key={trip.id} data-trip-row={trip.id} className={`transition-all duration-500 ${trip.contractorPaidDate ? "bg-green-50/50 text-slate-400" : "bg-white"}`}>
+                          <td className="px-4 py-3 text-center no-print">
+                            <input type="checkbox" className="rounded" checked={selectedPrintIds.has(trip.id)} onChange={() => togglePrintSelect(trip.id)} />
+                          </td>
                           <td className="px-4 py-3 text-slate-600">{trip.date}</td>
                           <td className="px-4 py-3 font-mono font-bold">{trip.billNo}</td>
                           <td className="px-4 py-3 text-blue-600 font-bold">{trip.regNumber}</td>
                           <td className="px-4 py-3 text-xs">{trip.from} ➔ {trip.to}</td>
                           <td className="px-4 py-3 font-bold">{trip.netWeight}</td>
                           <td className="px-4 py-3">₹{trip.rate}</td>
-                          <td className="px-4 py-3 font-bold text-slate-800">₹ {trip.tripTotal.toLocaleString()}</td>
+                          <td className="px-4 py-3 font-bold text-slate-800">₹ {trip.tripTotal.toLocaleString('en-IN')}</td>
                           <td className="px-4 py-3 bg-blue-50/30">
                              <div className="flex items-center gap-1">
                                  <span className="text-slate-400">₹</span>
@@ -1468,13 +1891,18 @@ const AmountCreditedView = ({ trips, setTrips, handleDeleteTrip }: any) => {
              </tbody>
           </table>
         </div>
+      </div>
+        );
+      })()}
     </div>
   );
 };
 
 const FuelView = ({ trips, filterReg, setFilterReg, setTrips }: any) => {
-  
-  // 1. FILTER: Exclude Bill No "0" globally for this page
+  const [editingTrip, setEditingTrip] = useState<any>(null);
+  const [isSaving, setIsSaving] = useState(false);
+
+  // 1. FILTER: Exclude Bill No "0"
   const visibleTrips = trips.filter((t: any) => String(t.billNo) !== "0");
 
   // 2. SORTING
@@ -1482,22 +1910,40 @@ const FuelView = ({ trips, filterReg, setFilterReg, setTrips }: any) => {
   const paidTrips = visibleTrips.filter((t: any) => t.fuelPaidDate).sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
   const sortedTrips = [...unpaidTrips, ...paidTrips];
 
-  // 3. DATE UPDATE FUNCTION
+  // 3. UPDATE HANDLERS
   const handleUpdateFuelDate = async (tripId: number, date: string) => {
     const val = date || null;
     const { error } = await supabase.from('trips').update({ fuel_paid_date: val }).eq('id', tripId);
-    if(error) {
-        alert("Error saving date: " + error.message);
-    } else {
-        if(setTrips) {
-            setTrips((prev: any) => prev.map((t: any) => 
-                t.id === tripId ? { ...t, fuelPaidDate: val } : t
-            ));
-        }
-    }
+    if(error) alert("Error: " + error.message);
+    else setTrips((prev: any) => prev.map((t: any) => t.id === tripId ? { ...t, fuelPaidDate: val } : t));
   };
 
-  // 4. CALCULATIONS
+  const handleSaveFuelEdit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSaving(true);
+    
+    const payload = {
+      diesel_liters: Number(editingTrip.dieselLiters),
+      diesel_price: Number(editingTrip.dieselPrice),
+    };
+
+    const { error } = await supabase.from('trips').update(payload).eq('id', editingTrip.id);
+
+    if (error) {
+      alert("Update failed: " + error.message);
+    } else {
+      setTrips((prev: any) => prev.map((t: any) => 
+        t.id === editingTrip.id 
+          ? { ...t, dieselLiters: editingTrip.dieselLiters, dieselPrice: editingTrip.dieselPrice } 
+          : t
+      ));
+      setEditingTrip(null);
+      alert("Fuel record updated!");
+    }
+    setIsSaving(false);
+  };
+
+  // Calculations
   const totalFuelCost = visibleTrips.reduce((acc: number, t: any) => acc + (Number(t.dieselPrice) || 0), 0);
   const totalLiters = visibleTrips.reduce((acc: number, t: any) => acc + (Number(t.dieselLiters) || 0), 0);
   const remainingPayment = unpaidTrips.reduce((acc: number, t: any) => acc + (Number(t.dieselPrice) || 0), 0);
@@ -1509,18 +1955,19 @@ const FuelView = ({ trips, filterReg, setFilterReg, setTrips }: any) => {
         {filterReg && <button onClick={() => setFilterReg(null)} className="text-xs bg-slate-200 hover:bg-slate-300 px-3 py-1 rounded text-slate-700">Clear Filter: {filterReg}</button>}
       </div>
 
+      {/* Stats Cards */}
       <div className="grid grid-cols-3 gap-4 max-w-2xl">
          <div className="bg-orange-50 border border-orange-100 p-4 rounded-xl">
             <div className="text-orange-600 font-bold text-xs uppercase mb-1">Total Fuel Cost</div>
-            <div className="text-2xl font-bold text-slate-800">₹ {totalFuelCost.toLocaleString()}</div>
+            <div className="text-2xl font-bold text-slate-800">₹ {totalFuelCost.toLocaleString('en-IN')}</div>
          </div>
          <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl">
             <div className="text-blue-600 font-bold text-xs uppercase mb-1">Total Liters</div>
-            <div className="text-2xl font-bold text-slate-800">{totalLiters.toLocaleString()} L</div>
+            <div className="text-2xl font-bold text-slate-800">{totalLiters.toLocaleString('en-IN')} L</div>
          </div>
          <div className="bg-red-50 border border-red-100 p-4 rounded-xl">
             <div className="text-red-600 font-bold text-xs uppercase mb-1">Pending Payment</div>
-            <div className="text-2xl font-bold text-slate-800">₹ {remainingPayment.toLocaleString()}</div>
+            <div className="text-2xl font-bold text-slate-800">₹ {remainingPayment.toLocaleString('en-IN')}</div>
          </div>
       </div>
 
@@ -1532,50 +1979,103 @@ const FuelView = ({ trips, filterReg, setFilterReg, setTrips }: any) => {
                 <th className="px-6 py-4">Date</th>
                 <th className="px-6 py-4">Vehicle</th>
                 <th className="px-6 py-4">Route</th>
-                <th className="px-6 py-4 text-right">Km</th>
+                {/* KM Column Header Removed */}
                 <th className="px-6 py-4 text-right">Liters</th>
                 <th className="px-6 py-4 text-right">Price</th>
                 <th className="px-6 py-4">Paid On</th>
+                <th className="px-6 py-4 text-center">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {sortedTrips.length === 0 ? (
-                <tr><td colSpan={7} className="p-6 text-center text-slate-400">No fuel records found.</td></tr>
-              ) : (
-                sortedTrips.map((trip: any) => (
-                  <tr key={trip.id} className="hover:bg-slate-50">
-                    <td className="px-6 py-4 font-bold text-slate-700">{trip.date}</td>
-                    <td className="px-6 py-4 font-bold text-blue-600">{trip.regNumber}</td>
-                    <td className="px-6 py-4 text-slate-500">{trip.from} ➔ {trip.to}</td>
-                    <td className="px-6 py-4 text-right font-mono text-slate-600">{trip.expense
- || '-'}</td>
-                    <td className="px-6 py-4 text-right font-mono">{trip.dieselLiters || '-'} L</td>
-                    <td className="px-6 py-4 text-right font-bold text-orange-600">₹ {Number(trip.dieselPrice).toLocaleString()}</td>
-                    <td className="px-6 py-4">
-                      <input 
-                        type="date" 
-                        className={`border p-1 rounded text-xs outline-none ${trip.fuelPaidDate ? 'bg-green-50 border-green-200 text-green-700 font-bold' : 'bg-red-50 border-red-200 text-red-700 font-bold'}`}
-                        defaultValue={trip.fuelPaidDate}
-                        onBlur={(e) => handleUpdateFuelDate(trip.id, e.target.value)}
-                      />
-                    </td>
-                  </tr>
-                ))
-              )}
+              {sortedTrips.map((trip: any) => (
+                <tr key={trip.id} className="hover:bg-slate-50">
+                  <td className="px-6 py-4 font-bold text-slate-700">{trip.date}</td>
+                  <td className="px-6 py-4 font-bold text-blue-600">{trip.regNumber}</td>
+                  <td className="px-6 py-4 text-slate-500">{trip.from} ➔ {trip.to}</td>
+                  {/* KM Data Cell Removed */}
+                  <td className="px-6 py-4 text-right font-mono">{trip.dieselLiters || '-'} L</td>
+                  <td className="px-6 py-4 text-right font-bold text-orange-600">₹ {Number(trip.dieselPrice).toLocaleString('en-IN')}</td>
+                  <td className="px-6 py-4">
+                    <input 
+                      type="date" 
+                      className={`border p-1 rounded text-xs outline-none ${trip.fuelPaidDate ? 'bg-green-50 border-green-200 text-green-700 font-bold' : 'bg-red-50 border-red-200 text-red-700 font-bold'}`}
+                      defaultValue={trip.fuelPaidDate}
+                      onBlur={(e) => handleUpdateFuelDate(trip.id, e.target.value)}
+                    />
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <button 
+                      onClick={() => setEditingTrip(trip)} 
+                      className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    >
+                      <Palette size={16} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
+
+      {/* EDIT MODAL WITHOUT KM */}
+      {editingTrip && (
+        <ModalWrapper title={`Edit Fuel: ${editingTrip.regNumber}`} onClose={() => setEditingTrip(null)}>
+          <form onSubmit={handleSaveFuelEdit} className="space-y-4">
+            <div className="p-3 bg-blue-50 text-blue-700 text-[10px] font-bold uppercase rounded border border-blue-100">
+              Bill No: {editingTrip.billNo} | Date: {editingTrip.date}
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <Input 
+                label="Diesel Liters" 
+                type="number" 
+                value={editingTrip.dieselLiters} 
+                onChange={(e) => setEditingTrip({...editingTrip, dieselLiters: e.target.value})} 
+              />
+              <Input 
+                label="Fuel Total Price (₹)" 
+                type="number" 
+                value={editingTrip.dieselPrice} 
+                onChange={(e) => setEditingTrip({...editingTrip, dieselPrice: e.target.value})} 
+              />
+            </div>
+            <button 
+              disabled={isSaving}
+              type="submit" 
+              className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold shadow-lg hover:bg-blue-700 transition-all active:scale-95"
+            >
+              {isSaving ? "Saving..." : "Update Fuel Data"}
+            </button>
+          </form>
+        </ModalWrapper>
+      )}
     </div>
   );
 };
-
-const TripsView = ({ trips, handleFilterSelect, handleDeleteTrip }: any) => {
+const TripsView = ({ trips, setTrips, handleFilterSelect, handleDeleteTrip }: any) => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState(() => {
+    // Default to the current calendar month
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  });
+
+  // Build list of available months from trip data (newest first)
+  const availableMonths = Array.from(
+    new Set(trips.filter((t: any) => String(t.billNo) !== "0" && t.date).map((t: any) => t.date.slice(0, 7)))
+  ).sort((a: any, b: any) => b.localeCompare(a)) as string[];
+
+  const handleToggleBillReceived = async (tripId: number, current: boolean) => {
+    const newVal = !current;
+    await supabase.from('trips').update({ bill_received: newVal }).eq('id', tripId);
+    setTrips((prev: any[]) => prev.map(t => t.id === tripId ? { ...t, billReceived: newVal } : t));
+  };
 
   const filteredTrips = trips.filter((t: any) => {
     if (String(t.billNo) === "0") return false;
+    // Month dropdown takes priority over date range
+    if (selectedMonth) return t.date && t.date.startsWith(selectedMonth);
     if (!startDate && !endDate) return true;
     const tripDate = new Date(t.date);
     const start = startDate ? new Date(startDate) : new Date('1900-01-01');
@@ -1585,14 +2085,37 @@ const TripsView = ({ trips, handleFilterSelect, handleDeleteTrip }: any) => {
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-wrap justify-between items-center gap-3">
         <h2 className="text-lg font-bold">Trip History & Earnings</h2>
-        <DateFilter startDate={startDate} endDate={endDate} onStartChange={setStartDate} onEndChange={setEndDate} />
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Month Dropdown — same pattern as Finance page */}
+          <div className="flex items-center gap-2 bg-white border border-slate-200 p-1.5 rounded-lg shadow-sm">
+            <Calendar size={14} className="text-slate-400"/>
+            <select
+              className="text-xs border-none outline-none text-slate-700 font-medium bg-transparent"
+              value={selectedMonth}
+              onChange={(e) => { setSelectedMonth(e.target.value); setStartDate(''); setEndDate(''); }}
+            >
+              <option value="">All Months</option>
+              {availableMonths.map((m: string) => {
+                const [year, month] = m.split('-');
+                const label = new Date(Number(year), Number(month) - 1).toLocaleString('default', { month: 'long', year: 'numeric' });
+                return <option key={m} value={m}>{label}</option>;
+              })}
+            </select>
+            {selectedMonth && (
+              <button onClick={() => setSelectedMonth('')} className="ml-1 p-1 hover:bg-red-50 text-slate-400 hover:text-red-500 rounded"><X size={12}/></button>
+            )}
+          </div>
+          {/* Date range only shows when no month is selected */}
+          {!selectedMonth && <DateFilter startDate={startDate} endDate={endDate} onStartChange={setStartDate} onEndChange={setEndDate} />}
+        </div>
       </div>
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
         <table className="w-full text-sm text-left">
-          <thead className="bg-slate-50 text-slate-500 font-bold uppercase text-xs whitespace-nowrap">
+  <thead className="bg-slate-50 text-slate-500 font-bold uppercase text-xs whitespace-nowrap">
   <tr>
+    <th className="px-4 py-3 text-center">Bill✓</th>
     <th className="px-4 py-3">Date</th>
     <th className="px-4 py-3">Bill No</th>
     <th className="px-4 py-3 border-l border-r border-slate-200 bg-slate-100">Vehicle</th>
@@ -1617,7 +2140,7 @@ const TripsView = ({ trips, handleFilterSelect, handleDeleteTrip }: any) => {
 </thead>
           <tbody className="divide-y divide-slate-100 whitespace-nowrap">
   {filteredTrips.length === 0 ? (
-    <tr><td colSpan={20} className="p-6 text-center text-slate-400">No trips recorded for this period.</td></tr>
+   <tr><td colSpan={21} className="p-6 text-center text-slate-400">No trips recorded for this period.</td></tr>
   ) : (
     filteredTrips.map((trip: any, index: number) => {
       const totalExpense =
@@ -1629,9 +2152,17 @@ const TripsView = ({ trips, handleFilterSelect, handleDeleteTrip }: any) => {
         Number(trip.expense || 0);
 
       const profit = (Number(trip.tripTotal) || 0) - totalExpense;
-      
-      return (
-        <tr key={`${trip.id}-${index}`} className="hover:bg-slate-50">
+ return (
+        <tr key={`${trip.id}-${index}`} className={`transition-colors ${!trip.billReceived ? 'bg-red-50 hover:bg-red-100 text-red-800' : 'hover:bg-slate-50'}`}>
+          <td className="px-4 py-3 text-center">
+            <button
+              onClick={() => handleToggleBillReceived(trip.id, trip.billReceived ?? false)}
+              title={trip.billReceived ? 'Mark bill as not received' : 'Mark bill as received'}
+              className={`w-5 h-5 rounded border-2 flex items-center justify-center mx-auto transition-all ${trip.billReceived ? 'bg-green-500 border-green-500 text-white' : 'border-red-400 bg-white hover:border-green-400'}`}
+            >
+              {trip.billReceived && <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+            </button>
+          </td>
           <td className="px-4 py-3">{trip.date}</td>
           <td className="px-4 py-3 font-mono">{trip.billNo}</td>
           <td className="px-4 py-3 font-bold border-l border-r border-slate-100 bg-slate-50/30 cursor-pointer text-blue-600 hover:underline" onClick={() => handleFilterSelect && handleFilterSelect(trip.regNumber, 'trips')}>{trip.regNumber}</td>
@@ -1641,16 +2172,16 @@ const TripsView = ({ trips, handleFilterSelect, handleDeleteTrip }: any) => {
           <td className="px-4 py-3">{trip.loadType}</td>
           <td className="px-4 py-3">{trip.netWeight}</td>
           <td className="px-4 py-3">₹{trip.rate}</td>
-          <td className="px-4 py-3 font-bold text-blue-700 bg-blue-50/50">₹{(trip.tripTotal || 0).toLocaleString()}</td>
+          <td className="px-4 py-3 font-bold text-blue-700 bg-blue-50/50">₹{(trip.tripTotal || 0).toLocaleString('en-IN')}</td>
           <td className="px-4 py-3 text-blue-600 font-medium">₹{trip.advance}</td>
-          <td className="px-4 py-3 bg-indigo-50/30 font-mono">₹{Number(trip.expense || 0).toLocaleString()}</td>
+          <td className="px-4 py-3 bg-indigo-50/30 font-mono">₹{Number(trip.expense || 0).toLocaleString('en-IN')}</td>
           <td className="px-4 py-3 text-red-500">{trip.loadingCharge} / {trip.unloadingCharge}</td>
           <td className="px-4 py-3 bg-orange-50/30">{trip.dieselLiters} L</td>
           <td className="px-4 py-3 bg-orange-50/30">₹{trip.dieselPrice}</td>
           <td className="px-4 py-3">₹{trip.weighbridgeCharge}</td>
-          <td className="px-4 py-3 text-green-600">₹{(trip.driverTripPay || 0).toLocaleString()}</td>
-          <td className="px-4 py-3 font-bold text-red-700 bg-red-50/50">₹{totalExpense.toLocaleString()}</td>
-          <td className={`px-4 py-3 font-bold bg-slate-50/50 text-right ${profit >= 0 ? 'text-green-700' : 'text-red-700'}`}>₹{profit.toLocaleString()}</td>
+          <td className="px-4 py-3 text-green-600">₹{(trip.driverTripPay || 0).toLocaleString('en-IN')}</td>
+          <td className="px-4 py-3 font-bold text-red-700 bg-red-50/50">₹{totalExpense.toLocaleString('en-IN')}</td>
+          <td className={`px-4 py-3 font-bold bg-slate-50/50 text-right ${profit >= 0 ? 'text-green-700' : 'text-red-700'}`}>₹{profit.toLocaleString('en-IN')}</td>
           <td className="px-4 py-3 text-center">
             <button onClick={() => handleDeleteTrip(trip.id)} className="p-2 rounded bg-red-50 text-red-500 hover:bg-red-100 transition-colors" title="Delete Trip">
               <Trash2 size={16} />
@@ -1666,11 +2197,50 @@ const TripsView = ({ trips, handleFilterSelect, handleDeleteTrip }: any) => {
     </div>
   );
 };
-
 const DriversView = ({ drivers, setDrivers, trips, setTrips, currentUser }: any) => {
   const [isAdding, setIsAdding] = useState(false);
   const [selectedDriver, setSelectedDriver] = useState<Driver | null>(null);
+  const [editingDriver, setEditingDriver] = useState<Driver | null>(null);
+  const [editDriverForm, setEditDriverForm] = useState({ name: '', phone: '', license: '' });
   const [newDriver, setNewDriver] = useState({ name: "", phone: "", license: "", walletBalance: 0 });
+
+  useEffect(() => {
+    if (editingDriver) {
+      setEditDriverForm({
+        name: editingDriver.name,
+        phone: editingDriver.phone,
+        license: editingDriver.license,
+      });
+    }
+  }, [editingDriver]);
+
+  const handleUpdateDriver = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingDriver) return;
+
+    const { error } = await supabase
+      .from('drivers')
+      .update({
+        name: editDriverForm.name,
+        phone: editDriverForm.phone,
+        license: editDriverForm.license.toUpperCase(),
+      })
+      .eq('id', editingDriver.id);
+
+    if (error) {
+      alert("Error updating driver: " + error.message);
+    } else {
+      setDrivers((prev: Driver[]) =>
+        prev.map(d =>
+          d.id === editingDriver.id
+            ? { ...d, name: editDriverForm.name, phone: editDriverForm.phone, license: editDriverForm.license.toUpperCase() }
+            : d
+        )
+      );
+      setEditingDriver(null);
+      alert("Driver updated successfully!");
+    }
+  };
 
   const handleAddDriver = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -1728,7 +2298,7 @@ const DriversView = ({ drivers, setDrivers, trips, setTrips, currentUser }: any)
                 <th className="px-6 py-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+   <tbody className="divide-y divide-slate-100">
               
               {drivers.map((driver: Driver) => {
                 const netAdded = -driver.walletBalance; 
@@ -1739,11 +2309,17 @@ const DriversView = ({ drivers, setDrivers, trips, setTrips, currentUser }: any)
                     <td className="px-6 py-4 text-slate-600 font-mono uppercase">{driver.license}</td>
                     <td className="px-6 py-4 text-right">
                       <span className={`py-1 px-3 rounded-full font-bold text-xs ${netAdded >= 0 ? 'bg-blue-50 text-blue-700' : 'bg-green-100 text-green-700'}`}>
-                        ₹ {netAdded.toLocaleString()}
+                        ₹ {netAdded.toLocaleString('en-IN')}
                       </span>
                     </td>
-                    <td className="px-6 py-4 flex justify-center items-center gap-4">
+                    <td className="px-6 py-4 flex justify-center items-center gap-3">
                       {driver.walletBalance > 0 && (<button onClick={(e) => handleSettleDriver(driver.id, driver.name, driver.walletBalance, e)} className="flex items-center gap-1 bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-md text-xs font-bold transition-all shadow-sm z-10"><RefreshCw size={12} /> Settle</button>)}
+                      <button 
+                        onClick={(e) => { e.stopPropagation(); setEditingDriver(driver); }}
+                        className="flex items-center gap-1 bg-blue-50 hover:bg-blue-100 text-blue-600 px-3 py-1.5 rounded-md text-xs font-bold transition-all border border-blue-200 z-10"
+                      >
+                        <Palette size={12}/> Edit
+                      </button>
                       <ChevronRight size={16} className="text-slate-400" />
                     </td>
                   </tr>
@@ -1753,8 +2329,111 @@ const DriversView = ({ drivers, setDrivers, trips, setTrips, currentUser }: any)
           </table>
         </div>
       </div>
-      {selectedDriver && <DriverDetailsModal driver={selectedDriver} setDrivers={setDrivers} onClose={() => setSelectedDriver(null)} currentUser={currentUser} />}
+ {selectedDriver && <DriverDetailsModal driver={selectedDriver} setDrivers={setDrivers} onClose={() => setSelectedDriver(null)} currentUser={currentUser} />}
       {isAdding && (<ModalWrapper title="Register Driver" onClose={() => setIsAdding(false)}><form onSubmit={handleAddDriver} className="space-y-4"><Input label="Name" value={newDriver.name} onChange={(e) => setNewDriver({...newDriver, name: e.target.value})} required /><Input label="Phone" value={newDriver.phone} onChange={(e) => setNewDriver({...newDriver, phone: e.target.value})} required /><Input label="License" value={newDriver.license} onChange={(e) => setNewDriver({...newDriver, license: e.target.value})} uppercase required /><button type="submit" className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold">Save Driver to Database</button></form></ModalWrapper>)}
+
+      {/* --- EDIT DRIVER MODAL --- */}
+      {editingDriver && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl animate-in zoom-in-95 overflow-hidden">
+            
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
+              <div className="flex justify-between items-start">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white font-bold text-xl backdrop-blur-sm">
+                    {editingDriver.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg">{editingDriver.name}</h3>
+                    <p className="text-blue-100 text-xs mt-0.5">Edit Driver Profile</p>
+                  </div>
+                </div>
+                <button 
+                  onClick={() => setEditingDriver(null)} 
+                  className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"
+                >
+                  <X size={18}/>
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Body */}
+            <form onSubmit={handleUpdateDriver} className="p-6 space-y-5">
+              
+              {/* Name Field */}
+              <div>
+                <label className="text-xs font-bold text-slate-500 uppercase mb-1.5 block flex items-center gap-1.5">
+                  <UserCircle size={12}/> Full Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  className="w-full border border-slate-300 p-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium"
+                  placeholder="Enter driver name"
+                  value={editDriverForm.name}
+                  onChange={(e) => setEditDriverForm({...editDriverForm, name: e.target.value})}
+                />
+              </div>
+
+              {/* Phone Field */}
+              <div>
+                <label className="text-xs font-bold text-slate-500 uppercase mb-1.5 block flex items-center gap-1.5">
+                  📞 Phone Number
+                </label>
+                <input
+                  type="tel"
+                  required
+                  className="w-full border border-slate-300 p-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium"
+                  placeholder="Enter phone number"
+                  value={editDriverForm.phone}
+                  onChange={(e) => setEditDriverForm({...editDriverForm, phone: e.target.value})}
+                />
+              </div>
+
+              {/* License Field */}
+              <div>
+                <label className="text-xs font-bold text-slate-500 uppercase mb-1.5 block flex items-center gap-1.5">
+                  🪪 License Number
+                </label>
+                <input
+                  type="text"
+                  required
+                  className="w-full border border-slate-300 p-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all font-medium uppercase tracking-widest"
+                  placeholder="Enter license number"
+                  value={editDriverForm.license}
+                  onChange={(e) => setEditDriverForm({...editDriverForm, license: e.target.value.toUpperCase()})}
+                />
+              </div>
+
+              {/* Info Box */}
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-start gap-2">
+                <span className="text-amber-500 text-sm mt-0.5">⚠️</span>
+                <p className="text-xs text-amber-700 font-medium">
+                  Wallet balance and trip history will not be affected by this update.
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setEditingDriver(null)}
+                  className="flex-1 border border-slate-300 text-slate-600 py-3 rounded-xl font-bold text-sm hover:bg-slate-50 transition-all"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-2 flex-grow bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-xl font-bold text-sm shadow-md shadow-blue-200 transition-all active:scale-95 flex items-center justify-center gap-2"
+                >
+                  <RefreshCw size={14}/> Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -1762,15 +2441,32 @@ const DriversView = ({ drivers, setDrivers, trips, setTrips, currentUser }: any)
 const FinanceView = ({ transactions, drivers, trips, handleDeleteTrip }: any) => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState(() => {
+    // Default to the current calendar month, e.g. "2026-05"
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  });
 
-  // 1. FILTERING
+  // Build list of months from trips data
+  const availableMonths = Array.from(
+    new Set(trips.filter((t: any) => String(t.billNo) !== "0" && t.date).map((t: any) => t.date.slice(0, 7)))
+  ).sort((a: any, b: any) => b.localeCompare(a)) as string[];
+
+  // 1. FILTERING — month dropdown takes priority over date range
   const filteredTrips = trips.filter((t: any) => {
     if (String(t.billNo) === "0") return false;
+    if (selectedMonth) return t.date && t.date.startsWith(selectedMonth);
     if (!startDate && !endDate) return true;
     const tripDate = new Date(t.date);
     const start = startDate ? new Date(startDate) : new Date('1900-01-01');
     const end = endDate ? new Date(endDate) : new Date('2100-01-01');
     return tripDate >= start && tripDate <= end;
+  }).sort((a: any, b: any) => {
+    const dateDiff = new Date(a.date).getTime() - new Date(b.date).getTime();
+    if (dateDiff !== 0) return dateDiff;
+    if (a.regNumber < b.regNumber) return -1;
+    if (a.regNumber > b.regNumber) return 1;
+    return 0;
   });
 
   // 2. CALCULATIONS (Rounded)
@@ -1829,6 +2525,124 @@ const totalExpenses = Math.round(
     a.setAttribute('hidden', ''); a.setAttribute('href', url); a.setAttribute('download', `Finance_Report.csv`);
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
   };
+
+  // Build Finance print from DATA — avoids overflow-y-auto clipping that causes blank space in PDF
+  const handlePrintFinance = () => {
+    if (filteredTrips.length === 0) { alert("No data to print"); return; }
+    const dateStr = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    const label = selectedMonth
+      ? new Date(Number(selectedMonth.split('-')[0]), Number(selectedMonth.split('-')[1]) - 1)
+          .toLocaleString('default', { month: 'long', year: 'numeric' })
+      : 'All Months';
+
+    const rows = filteredTrips.map((trip: TripRecord) => {
+      const drPay = Math.round(Number(trip.driverTripPay) || 0);
+      const tripTotal = Math.round(Number(trip.tripTotal) || 0);
+      const tripExpense = Math.round(
+        (Number(trip.loadingCharge) || 0) + (Number(trip.unloadingCharge) || 0) +
+        (Number(trip.dieselPrice) || 0) + (Number(trip.weighbridgeCharge) || 0) +
+        drPay + (Number(trip.expense) || 0)
+      );
+      const profit = tripTotal - tripExpense;
+      return `
+        <tr>
+          <td>${trip.date}</td>
+          <td style="font-family:monospace;">${trip.billNo}</td>
+          <td style="font-weight:700;">${trip.regNumber}</td>
+          <td>${trip.driverName}</td>
+          <td>${trip.from} - ${trip.to}</td>
+          <td>${trip.contractor}</td>
+          <td>${trip.loadType}</td>
+          <td style="text-align:right;font-weight:700;">${trip.netWeight}</td>
+          <td style="text-align:right;">₹${trip.rate}</td>
+          <td style="text-align:right;font-weight:700;background:#eff6ff;color:#1d4ed8;">₹${tripTotal.toLocaleString('en-IN')}</td>
+          <td style="text-align:right;color:#ea580c;">₹${Number(trip.advance||0).toLocaleString('en-IN')}</td>
+          <td style="text-align:right;">₹${Number(trip.weighbridgeCharge||0).toLocaleString('en-IN')}</td>
+          <td style="text-align:right;">₹${Number(trip.loadingCharge||0).toLocaleString('en-IN')}</td>
+          <td style="text-align:right;">₹${Number(trip.unloadingCharge||0).toLocaleString('en-IN')}</td>
+          <td style="text-align:right;background:#fff1f2;color:#dc2626;">₹${Number(trip.expense||0).toLocaleString('en-IN')}</td>
+          <td style="text-align:right;color:#16a34a;font-weight:700;">₹${drPay.toLocaleString('en-IN')}</td>
+          <td style="text-align:right;">${trip.dieselLiters||0} L</td>
+          <td style="text-align:right;">₹${Number(trip.dieselPrice||0).toLocaleString('en-IN')}</td>
+          <td style="text-align:right;font-weight:700;background:#fff1f2;color:#b91c1c;">₹${tripExpense.toLocaleString('en-IN')}</td>
+          <td style="text-align:right;font-weight:700;${profit >= 0 ? 'background:#f0fdf4;color:#15803d;' : 'background:#fff1f2;color:#dc2626;'}">₹${profit.toLocaleString('en-IN')}</td>
+        </tr>`;
+    }).join('');
+
+    const html = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=1200"/>
+  <title>Financial Report — Anjaneya Transport</title>
+  <style>
+    @page { size: A4 landscape; margin: 8mm; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { width: 1200px; height: auto; }
+    body { width: 1200px; height: auto; min-height: 0; font-family: Arial, sans-serif; font-size: 8px; color: #1e293b; background: #fff; }
+    .header { display: flex; justify-content: space-between; align-items: flex-start;
+      border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin-bottom: 8px; }
+    .header h1 { font-size: 14px; font-weight: 800; }
+    .header .sub { font-size: 7px; color: #94a3b8; font-weight: 700; text-transform: uppercase; margin-top: 2px; }
+    .header .company { font-size: 12px; font-weight: 900; color: #2563eb; }
+    .summary { display: flex; gap: 8px; margin-bottom: 8px; }
+    .summary div { flex: 1; border: 1px solid #e2e8f0; border-radius: 4px; padding: 4px 8px; }
+    .summary .slabel { font-size: 6.5px; font-weight: 700; text-transform: uppercase; color: #64748b; }
+    .summary .sval { font-size: 12px; font-weight: 800; color: #1e293b; }
+    .section-title { font-size: 9px; font-weight: 700; color: #334155; margin-bottom: 4px; }
+    .badge { background: #e2e8f0; color: #475569; padding: 1px 6px; border-radius: 8px; font-size: 7px; font-weight: 700; margin-left: 6px; }
+    table { width: 100%; border-collapse: collapse; table-layout: auto; }
+    thead { display: table-header-group; }
+    tbody tr { page-break-inside: avoid; }
+    th { background: #1e293b; color: #e2e8f0; padding: 3px 4px; font-size: 7px;
+         font-weight: 700; text-transform: uppercase; border: 1px solid #334155; text-align: left; white-space: nowrap; }
+    th[style] { background: unset; color: unset; }
+    td { padding: 2px 4px; font-size: 7.5px; border: 1px solid #e2e8f0; white-space: nowrap; }
+    td[style*="background"] { background: unset; }
+    td[style*="color"] { color: unset; }
+    tbody tr:nth-child(even) td:not([style]) { background: #f8fafc; }
+    .footer { margin-top: 8px; text-align: center; font-size: 7px; color: #94a3b8; font-style: italic; border-top: 1px solid #f1f5f9; padding-top: 4px; }
+  </style>
+  <script>window.onload = function(){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ window.print(); }); }); };</script>
+</head>
+<body style="height:auto;min-height:0;">
+  <div class="header">
+    <div>
+      <h1>Financial Report</h1>
+      <div class="sub">Trip Tally &bull; ${dateStr} &bull; ${label}</div>
+    </div>
+    <div class="company">ANJANEYA TRANSPORT</div>
+  </div>
+  <div class="summary">
+    <div><div class="slabel">Revenue</div><div class="sval">₹ ${totalRentRevenue.toLocaleString('en-IN')}</div></div>
+    <div><div class="slabel">Total Fuel</div><div class="sval">${totalFuelLiters.toLocaleString('en-IN')} L</div></div>
+    <div><div class="slabel">Total Expense</div><div class="sval">₹ ${totalExpenses.toLocaleString('en-IN')}</div></div>
+    <div><div class="slabel">Net Profit</div><div class="sval">₹ ${totalProfit.toLocaleString('en-IN')}</div></div>
+  </div>
+  <div class="section-title">Detailed Transaction Log <span class="badge">${filteredTrips.length} Records</span></div>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th><th>Bill No</th><th>Vehicle</th><th>Driver</th><th>Route</th>
+        <th>Contractor</th><th>Load</th><th>Net Wt</th><th>Rate</th>
+        <th style="background:#1e3a5f;color:#bfdbfe;">Total Rent</th>
+        <th style="color:#fb923c;">Advance</th>
+        <th>Weighbridge</th><th>Loading</th><th>Unloading</th>
+        <th style="background:#4c0519;color:#fecdd3;">Extra Exp</th>
+        <th style="color:#86efac;">Dr Pay</th>
+        <th>Diesel L</th><th>Fuel ₹</th>
+        <th style="background:#7f1d1d;color:#fecaca;">Total Exp</th>
+        <th style="background:#14532d;color:#bbf7d0;">Profit</th>
+      </tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>
+  <div class="footer">Computer generated statement. Contact depot for discrepancies.</div>
+</body>
+</html>`;
+
+    openPrintTab(html);
+  };
     
   return (
     <div className="h-full flex flex-col space-y-4">
@@ -1838,10 +2652,30 @@ const totalExpenses = Math.round(
              <p className="text-xs text-slate-500 font-medium">Track Earnings, Expenses & Downloads</p>
           </div>
           <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-            <DateFilter startDate={startDate} endDate={endDate} onStartChange={setStartDate} onEndChange={setEndDate} />
+            {/* Month Dropdown */}
+            <div className="flex items-center gap-2 bg-white border border-slate-200 p-1.5 rounded-lg shadow-sm">
+              <Calendar size={14} className="text-slate-400"/>
+              <select
+                className="text-xs border-none outline-none text-slate-700 font-medium bg-transparent"
+                value={selectedMonth}
+                onChange={(e) => { setSelectedMonth(e.target.value); setStartDate(''); setEndDate(''); }}
+              >
+                <option value="">All Months</option>
+                {availableMonths.map((m: string) => {
+                  const [year, month] = m.split('-');
+                  const label = new Date(Number(year), Number(month) - 1).toLocaleString('default', { month: 'long', year: 'numeric' });
+                  return <option key={m} value={m}>{label}</option>;
+                })}
+              </select>
+              {selectedMonth && (
+                <button onClick={() => setSelectedMonth('')} className="ml-1 p-1 hover:bg-red-50 text-slate-400 hover:text-red-500 rounded"><X size={12}/></button>
+              )}
+            </div>
+            {/* Optional date range (secondary) */}
+            {!selectedMonth && <DateFilter startDate={startDate} endDate={endDate} onStartChange={setStartDate} onEndChange={setEndDate} />}
             <div className="h-8 w-px bg-slate-200 mx-1 hidden md:block"></div>
             <button onClick={handleDownloadExcel} className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-bold text-sm shadow-md transition-all active:scale-95"><Download size={16}/> Excel</button>
-            <button onClick={() => printSection('finance-print-area', 'Financial Report')} className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg font-bold text-sm shadow-md transition-all active:scale-95"><Printer size={16}/> Print</button>
+            <button onClick={handlePrintFinance} className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg font-bold text-sm shadow-md transition-all active:scale-95"><Printer size={16}/> Print</button>
           </div>
       </div>
 
@@ -1849,20 +2683,20 @@ const totalExpenses = Math.round(
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 print:grid-cols-4">
           <div className="bg-gradient-to-br from-indigo-500 to-blue-600 p-4 rounded-xl shadow-lg text-white">
              <div className="flex items-center gap-2 opacity-80 font-bold text-[10px] uppercase tracking-wider mb-1"><Briefcase size={14}/> Revenue</div>
-             <div className="text-xl font-extrabold tracking-tight">₹ {totalRentRevenue.toLocaleString()}</div>
+             <div className="text-xl font-extrabold tracking-tight">₹ {totalRentRevenue.toLocaleString('en-IN')}</div>
           </div>
           <div className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-orange-500">
              <div className="flex items-center gap-2 text-orange-600 font-bold text-[10px] uppercase tracking-wider mb-1"><Droplet size={14}/> Total Fuel</div>
-             <div className="text-xl font-extrabold text-slate-800">{totalFuelLiters.toLocaleString()} L</div>
+             <div className="text-xl font-extrabold text-slate-800">{totalFuelLiters.toLocaleString('en-IN')} L</div>
           </div>
           <div className="bg-white p-4 rounded-xl shadow-sm border-l-4 border-red-500">
             <div className="flex items-center gap-2 text-red-600 font-bold text-[10px] uppercase tracking-wider mb-1"><Receipt size={14}/> Total Expense</div>
-            <div className="text-xl font-extrabold text-slate-800">₹ {totalExpenses.toLocaleString()}</div>
+            <div className="text-xl font-extrabold text-slate-800">₹ {totalExpenses.toLocaleString('en-IN')}</div>
             <div className="text-[9px] text-slate-400 mt-1 font-medium leading-tight">Load+Unload+Fuel+Weight+DrPay</div>
           </div>
           <div className="bg-gradient-to-br from-emerald-500 to-green-600 p-4 rounded-xl shadow-lg text-white">
             <div className="flex items-center gap-2 opacity-80 font-bold text-[10px] uppercase tracking-wider mb-1"><TrendingUp size={14}/> Net Profit</div>
-            <div className="text-xl font-extrabold tracking-tight">₹ {totalProfit.toLocaleString()}</div>
+            <div className="text-xl font-extrabold tracking-tight">₹ {totalProfit.toLocaleString('en-IN')}</div>
           </div>
         </div>
         
@@ -1941,20 +2775,20 @@ const totalExpenses = Math.round(
           
           {/* Use defined tripTotal */}
           <td className="px-3 py-2 border-r border-slate-50 font-bold text-blue-700 bg-blue-50/50">
-            ₹{tripTotal.toLocaleString()}
+            ₹{tripTotal.toLocaleString('en-IN')}
           </td>
           
           <td className="px-3 py-2 border-r border-slate-50 text-right text-orange-600 font-semibold">₹{trip.advance}</td>
           <td className="px-3 py-2 border-r border-slate-50 text-right text-slate-600">₹{trip.weighbridgeCharge}</td>
           
           {/* Expense Section Reordered */}
-          <td className="px-3 py-2 border-r border-slate-50 text-right text-red-500 font-bold">₹{Number(trip.loadingCharge || 0).toLocaleString()}</td>
-          <td className="px-3 py-2 border-r border-slate-50 text-right text-red-500 font-bold">₹{Number(trip.unloadingCharge || 0).toLocaleString()}</td>
-          <td className="px-3 py-2 border-r border-slate-50 text-right text-red-600 font-bold bg-red-50/50">₹{Number(trip.expense || 0).toLocaleString()}</td>
+          <td className="px-3 py-2 border-r border-slate-50 text-right text-red-500 font-bold">₹{Number(trip.loadingCharge || 0).toLocaleString('en-IN')}</td>
+          <td className="px-3 py-2 border-r border-slate-50 text-right text-red-500 font-bold">₹{Number(trip.unloadingCharge || 0).toLocaleString('en-IN')}</td>
+          <td className="px-3 py-2 border-r border-slate-50 text-right text-red-600 font-bold bg-red-50/50">₹{Number(trip.expense || 0).toLocaleString('en-IN')}</td>
 
           {/* Use defined drPay */}
           <td className="px-3 py-2 border-r border-slate-50 text-right text-green-600 font-bold bg-green-50/30">
-            ₹{drPay.toLocaleString()}
+            ₹{drPay.toLocaleString('en-IN')}
           </td>
           
           <td className="px-3 py-2 border-r border-slate-50 text-right text-slate-600">{trip.dieselLiters} L</td>
@@ -1962,12 +2796,12 @@ const totalExpenses = Math.round(
           
           {/* Use defined tripExpense */}
           <td className="px-3 py-2 border-r border-slate-50 text-right text-red-600 font-bold bg-red-50/30">
-            ₹{tripExpense.toLocaleString()}
+            ₹{tripExpense.toLocaleString('en-IN')}
           </td>
           
           {/* Use defined tripProfit */}
           <td className={`px-3 py-2 text-right font-extrabold ${tripProfit >= 0 ? 'text-emerald-600 bg-emerald-50/50' : 'text-red-600 bg-red-50/50'}`}>
-            ₹{tripProfit.toLocaleString()}
+            ₹{tripProfit.toLocaleString('en-IN')}
           </td>
           
           <td className="px-2 py-3 text-center no-print">
@@ -2159,7 +2993,7 @@ const handleRetrieveSettlement = async (log: WeeklyHistory) => {
                       </div>
                       <div className="bg-white p-3 rounded-lg border border-slate-200">
                          <span className="text-[10px] font-bold text-slate-400 uppercase">Total Amount</span>
-                         <div className="text-green-600 font-bold text-lg">₹ {log.totalExpense.toLocaleString()}</div>
+                         <div className="text-green-600 font-bold text-lg">₹ {log.totalExpense.toLocaleString('en-IN')}</div>
                       </div>
                       <div className="bg-white p-3 rounded-lg border border-slate-200">
                          <span className="text-[10px] font-bold text-slate-400 uppercase">Total Trips</span>
@@ -2234,22 +3068,22 @@ const handleRetrieveSettlement = async (log: WeeklyHistory) => {
                                    </div>
                                  </td>
                                  <td className="px-5 py-4 text-indigo-600 font-bold">
-                                   ₹ {advance.toLocaleString()}
+                                   ₹ {advance.toLocaleString('en-IN')}
                                  </td>
                                  <td className="px-5 py-4 text-red-600">
-                                   <div className="font-bold">₹ {totalTripExpenses.toLocaleString()}</div>
+                                   <div className="font-bold">₹ {totalTripExpenses.toLocaleString('en-IN')}</div>
                                    <div className="text-[10px] text-slate-400 mt-0.5 font-mono">
                                      L:{loadChg} / U:{unloadChg} / W:{weightChg}
                                    </div>
                                  </td>
                                  <td className="px-5 py-4 text-slate-600 font-medium">
-                                   ₹ {tripRent.toLocaleString()}
+                                   ₹ {tripRent.toLocaleString('en-IN')}
                                  </td>
                                  <td className="px-5 py-4 text-green-700 font-bold">
-                                   ₹ {drPay.toLocaleString()}
+                                   ₹ {drPay.toLocaleString('en-IN')}
                                  </td>
                                  <td className="px-5 py-4 bg-blue-50 border-l border-blue-100 text-blue-700 font-extrabold text-right">
-                                   ₹ {finalPay.toLocaleString()}
+                                   ₹ {finalPay.toLocaleString('en-IN')}
                                  </td>
                                </tr>
                              );
@@ -2638,7 +3472,7 @@ const calculatedNetAdded = Math.round(localWalletBalance + selectedTripsSum);
                     <h2 className="text-xl font-bold text-slate-800">{driver.name}</h2>
                     <div className="text-xs text-slate-500 font-mono flex items-center gap-2">
                         Total Balance: <span className={calculatedNetAdded >= 0 ? "text-green-600" : "text-red-600"}>
-                          ₹{calculatedNetAdded.toLocaleString()}
+                          ₹{calculatedNetAdded.toLocaleString('en-IN')}
                         </span>
                         {localWalletBalance !== 0 && (
                           <button 
@@ -2722,25 +3556,25 @@ const calculatedNetAdded = Math.round(localWalletBalance + selectedTripsSum);
     {/* 1. Total Advances */}
     <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
         <div className="text-xs font-bold text-slate-400 uppercase">Total Advances</div>
-        <div className="text-xl font-bold text-orange-600">₹ {totalAdvance.toLocaleString()}</div>
+        <div className="text-xl font-bold text-orange-600">₹ {totalAdvance.toLocaleString('en-IN')}</div>
     </div>
 
     {/* 2. L/U/W Sum */}
     <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
         <div className="text-xs font-bold text-slate-400 uppercase">L/U/W Sum</div>
-        <div className="text-xl font-bold text-red-600">₹ {(totalLoadingCharge + totalUnloadingCharge + totalWeighbridgeCharge).toLocaleString()}</div>
+        <div className="text-xl font-bold text-red-600">₹ {(totalLoadingCharge + totalUnloadingCharge + totalWeighbridgeCharge).toLocaleString('en-IN')}</div>
     </div>
 
     {/* 3. Extra Exp */}
     <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
         <div className="text-xs font-bold text-slate-400 uppercase">Extra Exp</div>
-        <div className="text-xl font-bold text-red-600">₹ {totalExtraExpense.toLocaleString()}</div>
+        <div className="text-xl font-bold text-red-600">₹ {totalExtraExpense.toLocaleString('en-IN')}</div>
     </div>
 
     {/* 4. Gross Pay */}
     <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
         <div className="text-xs font-bold text-slate-400 uppercase">Gross Pay</div>
-        <div className="text-xl font-bold text-slate-800">₹ {totalGrossPay.toLocaleString()}</div>
+        <div className="text-xl font-bold text-slate-800">₹ {totalGrossPay.toLocaleString('en-IN')}</div>
     </div>
 
     {/* 5. Net Added (Result of New Formula) */}
@@ -2748,7 +3582,7 @@ const calculatedNetAdded = Math.round(localWalletBalance + selectedTripsSum);
 <div className="bg-white p-4 rounded-xl border-l-4 border-l-indigo-600 shadow-md">
     <div className="text-xs font-bold text-slate-400 uppercase">Net Added</div>
     <div className={`text-2xl font-bold ${selectedTripsSum >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
-      ₹ {selectedTripsSum.toLocaleString()}
+      ₹ {selectedTripsSum.toLocaleString('en-IN')}
     </div>
 </div>
 </div>
@@ -2762,86 +3596,70 @@ const calculatedNetAdded = Math.round(localWalletBalance + selectedTripsSum);
     <div className="overflow-x-auto">
         <table className="w-full text-sm text-left">
             <thead className="bg-slate-800 text-slate-300 font-bold uppercase text-[10px] whitespace-nowrap">
-                <tr>
-                    <th className="px-4 py-3">Date</th>
-                    <th className="px-4 py-3">Route</th> 
-                    <th className="px-4 py-3">Load Type</th>
-                    {/* Displaying Entered Net Weight */}
-                    <th className="px-4 py-3 text-center bg-slate-700 text-white">Net Weight</th>
-                    <th className="px-4 py-3 text-right text-orange-400">Advance</th>
-                    {/* Dedicated Weighbridge Column */}
-                    <th className="px-4 py-3 text-right text-red-300">Weighbridge</th>
-                    <th className="px-4 py-3 text-center">L / U / E</th>
-                    <th className="px-4 py-3 text-right text-green-400">Dr Pay</th>
-                    <th className="px-4 py-3 text-right text-red-400">Total Exp</th>
-                    <th className="px-4 py-3 text-right text-white bg-blue-900">Net Added</th>
-                </tr>
-            </thead>
+    <tr>
+        <th className="px-4 py-3">Date</th>
+        <th className="px-4 py-3 border-l border-slate-700">Vehicle</th>
+        <th className="px-4 py-3 border-l border-slate-700">Route</th> 
+        <th className="px-4 py-3 border-l border-slate-700">Load Type</th>
+        <th className="px-4 py-3 text-center bg-slate-700 text-white">Net Weight</th>
+        <th className="px-4 py-3 text-right text-orange-400">Advance</th>
+        {/* TOP LEVEL LABELS ONLY */}
+        <th className="px-4 py-3 text-center text-red-300">L / U</th>
+        <th className="px-4 py-3 text-center text-red-400">Web / Exp</th>
+        <th className="px-4 py-3 text-right text-green-400">Dr Pay</th>
+        <th className="px-4 py-3 text-right text-red-400">Total Exp</th>
+        <th className="px-4 py-3 text-right text-white bg-blue-900">Net Added</th>
+    </tr>
+</thead>
             <tbody className="divide-y divide-slate-100 text-[11px] font-medium">
-                {loading ? (
-                    <tr><td colSpan={10} className="p-8 text-center text-slate-400">Loading History...</td></tr>
-                ) : filteredHistory.length === 0 ? (
-                    <tr><td colSpan={10} className="p-8 text-center text-slate-400">No active trips found.</td></tr>
-                ) : filteredHistory.map((h, index) => {
-                    const isSelected = selectedTripIds.has(h.id);
-                    const netAddedValue = h.netAmount; 
+    {loading ? (
+        <tr><td colSpan={12} className="p-8 text-center text-slate-400">Loading History...</td></tr>
+    ) : filteredHistory.length === 0 ? (
+        <tr><td colSpan={12} className="p-8 text-center text-slate-400">No active trips found.</td></tr>
+    ) : filteredHistory.map((h, index) => {
+        const isSelected = selectedTripIds.has(h.id);
+        const netAddedValue = h.netAmount; 
 
-                    return (
-                        <tr 
-                            key={`${h.id}-${index}`} 
-                            onClick={() => !submitting && handleToggleRow(h.id)} 
-                            className={`cursor-pointer transition-colors ${isSelected ? 'bg-indigo-50 hover:bg-indigo-100' : 'hover:bg-slate-50'}`}
-                        >
-                            <td className="px-4 py-3 font-bold text-slate-700">
-                                {h.date}
-                            </td>
-                            <td className="px-4 py-3 text-slate-600">
-                                <div className="flex items-center gap-1">
-                                    <span className="text-slate-400">➔</span> {h.to || "N/A"}
-                                </div>
-                            </td>
-                            <td className="px-4 py-3 font-bold text-slate-800">
-                                {h.loadType}
-                            </td>
-                            {/* THE ENTERED NET WEIGHT COLUMN */}
-<td className="px-4 py-3 text-center">
-    <span className="bg-blue-50 text-blue-700 border border-blue-100 px-2 py-1 rounded-md font-extrabold">
-        {/* Use h.netWeight and handle potential null/undefined */}
-        {h.netWeight || h.net_weight || "0"} T
-    </span>
-</td>
-                            <td className="px-4 py-3 text-right text-orange-600 font-bold">
-                                ₹{h.advance.toLocaleString()}
-                            </td>
-                            {/* SEPARATE WEIGHBRIDGE CHARGE */}
-                            <td className="px-4 py-3 text-right text-red-600 font-bold">
-                                ₹{h.weighbridgeCharge.toLocaleString()}
-                            </td>
-                            <td className="px-4 py-3 text-center bg-slate-50/50">
-                                <div className="flex flex-col items-center">
-                                    <div className="font-mono text-slate-700">
-                                        {h.loadingCharge}/{h.unloadingCharge}/<span className="text-red-500 font-bold">{h.extraExpense}</span>
-                                    </div>
-                                    <div className="text-[8px] text-slate-400 uppercase tracking-widest font-bold mt-0.5">
-                                        L / U / E
-                                    </div>
-                                </div>
-                            </td>
-                            <td className="px-4 py-3 text-right text-green-600 font-bold">
-                                ₹{h.driverTripPay.toLocaleString()}
-                            </td>
-                            <td className="px-4 py-3 text-right text-red-600 font-bold bg-red-50/30">
-                                ₹{h.totalExpenses.toLocaleString()}
-                            </td>
-                            <td className={`px-4 py-3 text-right font-bold border-l border-slate-100 ${
-                                netAddedValue >= 0 ? 'text-emerald-600 bg-emerald-50/10' : 'text-red-600 bg-red-50/10'
-                            }`}>
-                                ₹{netAddedValue.toLocaleString()}
-                            </td>
-                        </tr>
-                    );
-                })}
-            </tbody>
+        return (
+            <tr 
+                key={`${h.id}-${index}`} 
+                onClick={() => !submitting && handleToggleRow(h.id)} 
+                className={`cursor-pointer transition-colors ${isSelected ? 'bg-indigo-50 hover:bg-indigo-100' : 'hover:bg-slate-50'}`}
+            >
+                <td className="px-4 py-3 font-bold text-slate-700">{h.date}</td>
+                <td className="px-4 py-3 font-bold text-blue-600">{h.vehicle_reg || h.regNumber || "N/A"}</td>
+                <td className="px-4 py-3 text-slate-600">➔ {h.to || "N/A"}</td>
+                <td className="px-4 py-3 font-bold text-slate-800">{h.loadType}</td>
+                <td className="px-4 py-3 text-center">
+                    <span className="bg-blue-50 text-blue-700 border border-blue-100 px-2 py-1 rounded-md font-extrabold">
+                        {h.netWeight || h.net_weight || "0"} T
+                    </span>
+                </td>
+                <td className="px-4 py-3 text-right text-orange-600 font-bold">₹{h.advance.toLocaleString('en-IN')}</td>
+
+                {/* DISPLAY L / U WITHOUT SUB-LABELS */}
+                <td className="px-4 py-3 text-center bg-slate-50/30">
+                    <div className="font-mono text-slate-700">{h.loadingCharge} / {h.unloadingCharge}</div>
+                </td>
+
+                {/* DISPLAY WEB / EXP WITHOUT SUB-LABELS */}
+                <td className="px-4 py-3 text-center bg-red-50/10">
+                    <div className="font-mono text-slate-700">
+                        {h.weighbridgeCharge} / <span className="text-red-500 font-bold">{h.extraExpense}</span>
+                    </div>
+                </td>
+
+                <td className="px-4 py-3 text-right text-green-600 font-bold">₹{h.driverTripPay.toLocaleString('en-IN')}</td>
+                <td className="px-4 py-3 text-right text-red-600 font-bold bg-red-50/30">₹{h.totalExpenses.toLocaleString('en-IN')}</td>
+                <td className={`px-4 py-3 text-right font-bold border-l border-slate-100 ${
+                    netAddedValue >= 0 ? 'text-emerald-600 bg-emerald-50/10' : 'text-red-600 bg-red-50/10'
+                }`}>
+                    ₹{netAddedValue.toLocaleString('en-IN')}
+                </td>
+            </tr>
+        );
+    })}
+</tbody>
         </table>
     </div>
 </div>
@@ -2885,6 +3703,151 @@ const Input = ({
     />
   </div>
 );
+
+const DriverHistoryView = ({ trips, drivers }: any) => {
+  const [selectedDriver, setSelectedDriver] = useState<string>('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState(() => {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  });
+
+  const availableMonths = Array.from(
+    new Set(trips.filter((t: any) => String(t.billNo) !== "0" && t.date).map((t: any) => t.date.slice(0, 7)))
+  ).sort((a: any, b: any) => b.localeCompare(a)) as string[];
+
+  const filteredTrips = trips.filter((t: any) => {
+    const matchesDriver = selectedDriver ? t.driverName === selectedDriver : true;
+    const isNotPlaceholder = String(t.billNo) !== "0";
+    if (!matchesDriver || !isNotPlaceholder) return false;
+    if (selectedMonth) return t.date && t.date.startsWith(selectedMonth);
+    if (!startDate && !endDate) return true;
+    const tripDate = new Date(t.date);
+    const start = startDate ? new Date(startDate) : new Date('1900-01-01');
+    const end = endDate ? new Date(endDate) : new Date('2100-01-01');
+    return tripDate >= start && tripDate <= end;
+  });
+
+  // --- EXCEL DOWNLOAD LOGIC ---
+  const handleDownloadExcel = () => {
+    if (filteredTrips.length === 0) { alert("No data to download"); return; }
+    const headers = ["Date", "Bill No", "Vehicle", "Route", "Load Type", "Net Wt", "Advance", "L/U", "Web/Exp", "Dr Pay", "Total Exp", "Net Added"];
+    const csvRows = [
+      headers.join(','),
+      ...filteredTrips.map((t: any) => {
+        const totalExp = (Number(t.loadingCharge) || 0) + (Number(t.unloadingCharge) || 0) + (Number(t.weighbridgeCharge) || 0) + (Number(t.expense) || 0) + (Number(t.driverTripPay) || 0);
+        const netAdded = (Number(t.driverTripPay) || 0) - ((Number(t.advance) || 0) - ((Number(t.loadingCharge) || 0) + (Number(t.unloadingCharge) || 0) + (Number(t.weighbridgeCharge) || 0) + (Number(t.expense) || 0)));
+        return [
+          t.date, t.billNo, t.regNumber, `"${t.to}"`, t.loadType, t.netWeight, t.advance,
+          `"${t.loadingCharge}/${t.unloadingCharge}"`, `"${t.weighbridgeCharge}/${t.expense}"`,
+          t.driverTripPay, totalExp, netAdded
+        ].join(',');
+      })
+    ];
+    const blob = new Blob([csvRows.join('\n')], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Driver_History_${selectedDriver || 'All'}.csv`;
+    a.click();
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto space-y-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div>
+          <h2 className="text-lg font-bold text-slate-800">Driver History Log</h2>
+          <p className="text-xs text-slate-500">Comprehensive trip records filtered by driver</p>
+        </div>
+        
+        <div className="flex flex-wrap items-center gap-3">
+          <select 
+            className="text-xs border border-slate-200 p-2 rounded-lg font-bold text-slate-700 outline-none"
+            value={selectedDriver}
+            onChange={(e) => setSelectedDriver(e.target.value)}
+          >
+            <option value="">All Drivers</option>
+            {drivers.map((d: any) => <option key={d.id} value={d.name}>{d.name}</option>)}
+          </select>
+          {/* Month Dropdown */}
+          <div className="flex items-center gap-2 bg-white border border-slate-200 p-1.5 rounded-lg shadow-sm">
+            <Calendar size={14} className="text-slate-400"/>
+            <select
+              className="text-xs border-none outline-none text-slate-700 font-medium bg-transparent"
+              value={selectedMonth}
+              onChange={(e) => { setSelectedMonth(e.target.value); setStartDate(''); setEndDate(''); }}
+            >
+              <option value="">All Months</option>
+              {availableMonths.map((m: string) => {
+                const [year, month] = m.split('-');
+                const label = new Date(Number(year), Number(month) - 1).toLocaleString('default', { month: 'long', year: 'numeric' });
+                return <option key={m} value={m}>{label}</option>;
+              })}
+            </select>
+            {selectedMonth && (
+              <button onClick={() => setSelectedMonth('')} className="ml-1 p-1 hover:bg-red-50 text-slate-400 hover:text-red-500 rounded"><X size={12}/></button>
+            )}
+          </div>
+          {!selectedMonth && <DateFilter startDate={startDate} endDate={endDate} onStartChange={setStartDate} onEndChange={setEndDate} />}
+          
+          {/* ACTION BUTTONS */}
+          <div className="flex gap-2 border-l pl-3 ml-1">
+            <button onClick={handleDownloadExcel} className="p-2 bg-green-50 text-green-600 rounded-lg border border-green-100 hover:bg-green-100 transition-colors" title="Download Excel">
+              <Download size={18}/>
+            </button>
+            <button onClick={() => printSection('driver-history-table', 'Driver History Report')} className="p-2 bg-blue-50 text-blue-600 rounded-lg border border-blue-100 hover:bg-blue-100 transition-colors" title="Print Screen">
+              <Printer size={18}/>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="driver-history-table" className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
+        <table className="w-full text-sm text-left">
+          <thead className="bg-slate-800 text-slate-300 font-bold uppercase text-[10px] whitespace-nowrap">
+            <tr>
+              <th className="px-4 py-3">Date</th>
+              <th className="px-4 py-3">Bill No</th>
+              <th className="px-4 py-3 border-l border-slate-700">Vehicle</th>
+              <th className="px-4 py-3 border-l border-slate-700">Route</th>
+              <th className="px-4 py-3 border-l border-slate-700">Load Type</th>
+              <th className="px-4 py-3 text-center bg-slate-700 text-white">Net Weight</th>
+              <th className="px-4 py-3 text-right text-orange-400">Advance</th>
+              <th className="px-4 py-3 text-center text-red-300">L / U</th>
+              <th className="px-4 py-3 text-center text-red-400">Web / Exp</th>
+              <th className="px-4 py-3 text-right text-green-400">Dr Pay</th>
+              <th className="px-4 py-3 text-right text-red-400">Total Exp</th>
+              <th className="px-4 py-3 text-right text-white bg-blue-900">Net Added</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100 text-[11px] font-medium whitespace-nowrap">
+            {filteredTrips.map((t: any) => {
+              const totalExp = (Number(t.loadingCharge) || 0) + (Number(t.unloadingCharge) || 0) + (Number(t.weighbridgeCharge) || 0) + (Number(t.expense) || 0) + (Number(t.driverTripPay) || 0);
+              const netAdded = (Number(t.driverTripPay) || 0) - ((Number(t.advance) || 0) - ((Number(t.loadingCharge) || 0) + (Number(t.unloadingCharge) || 0) + (Number(t.weighbridgeCharge) || 0) + (Number(t.expense) || 0)));
+              return (
+                <tr key={t.id} className="hover:bg-slate-50 transition-colors">
+                  <td className="px-4 py-3 font-bold text-slate-700">{t.date}</td>
+                  <td className="px-4 py-3 font-mono text-slate-500">{t.billNo}</td>
+                  <td className="px-4 py-3 font-bold text-blue-600">{t.regNumber}</td>
+                  <td className="px-4 py-3 text-slate-600">➔ {t.to}</td>
+                  <td className="px-4 py-3 font-bold text-slate-800">{t.loadType}</td>
+                  <td className="px-4 py-3 text-center"><span className="bg-blue-50 text-blue-700 px-2 py-1 rounded font-extrabold">{t.netWeight} T</span></td>
+                  <td className="px-4 py-3 text-right text-orange-600 font-bold">₹{Number(t.advance).toLocaleString('en-IN')}</td>
+                  <td className="px-4 py-3 text-center bg-slate-50/30">{t.loadingCharge} / {t.unloadingCharge}</td>
+                  <td className="px-4 py-3 text-center bg-red-50/10">{t.weighbridgeCharge} / <span className="text-red-500">{t.expense}</span></td>
+                  <td className="px-4 py-3 text-right text-green-600 font-bold">₹{Number(t.driverTripPay).toLocaleString('en-IN')}</td>
+                  <td className="px-4 py-3 text-right text-red-600 font-bold bg-red-50/30">₹{totalExp.toLocaleString('en-IN')}</td>
+                  <td className={`px-4 py-3 text-right font-bold border-l border-slate-100 ${netAdded >= 0 ? 'text-emerald-600 bg-emerald-50/10' : 'text-red-600 bg-red-50/10'}`}>₹{netAdded.toLocaleString('en-IN')}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );        
+};
 
 const ActionButton = ({ icon, label, color, onClick }: any) => <button onClick={onClick} className="flex flex-col items-center justify-center py-3 hover:bg-white active:bg-slate-100 transition-colors group"><div className={`${color} mb-1 transition-transform group-hover:scale-110`}>{icon}</div><span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide group-hover:text-slate-700">{label}</span></button>;
 const SidebarItem = ({ icon, label, active, onClick }: any) => <button onClick={onClick} className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${active ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/50' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>{icon} {label}</button>;
