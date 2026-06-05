@@ -99,6 +99,7 @@ interface VehicleDetails {
   fitnessValidUpto: string; puccNo: string; puccValidUpto: string;
   permitValidUpto: string; nationalPermitNo: string; nationalPermitValidUpto: string;
   registeringAuthority: string; greenTax: string;
+  greenTaxValidUpto?: string; roadTaxValidUpto?: string;
 }
 interface TripRecord {
   id: number;
@@ -446,6 +447,8 @@ export default function LMSApp() {
   // NEW STATE FOR MOBILE MENU
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
+  const [notifEditVehicle, setNotifEditVehicle] = useState<Vehicle | null>(null);
+
   // --- 1. CHECK LOGIN STATUS ON LOAD ---
   useEffect(() => {
     const storedUser = localStorage.getItem('trip_tally_user');
@@ -573,7 +576,8 @@ if (tData) {
       if (v.vehicleDetails) {
         checkDate(v.vehicleDetails.fitnessValidUpto, 'Fitness Cert (FC)');
         checkDate(v.vehicleDetails.insuranceValidUpto, 'Insurance');
-        checkDate(v.vehicleDetails.greenTax, 'Green Tax');
+        // Use greenTaxValidUpto (the field saved by DetailsModal); fall back to greenTax for old records
+        checkDate(v.vehicleDetails.greenTaxValidUpto || v.vehicleDetails.greenTax, 'Green Tax');
       }
     });
     setNotifications(newNotifs);
@@ -644,7 +648,8 @@ if (tData) {
         handleFilterSelect, 
         filterReg, setFilterReg, 
         handleDeleteTrip,
-        currentUser // Pass user down for inserts
+        currentUser, // Pass user down for inserts
+        notifications // Pass notifications for vehicle cards
     };
 
     switch(currentView) {
@@ -732,18 +737,28 @@ if (tData) {
       {notifications.length === 0 ? (
         <div className="p-4 text-center text-slate-400 text-sm">No new notifications</div>
       ) : (
-        notifications.map(n => (
-          <div key={n.id} className={`mb-2 p-3 rounded-lg border-l-4 ${n.severity === 'critical' ? 'bg-red-50 border-red-500' : 'bg-orange-50 border-orange-500'}`}>
-            <div className="flex justify-between items-start">
-              <span className="font-bold text-sm text-slate-800">{n.type}</span>
-              {/* EDIT button was removed from here */}
+        notifications.map(n => {
+          const veh = vehicles.find((v: Vehicle) => v.regNumber === n.vehicle);
+          return (
+            <div key={n.id} className={`mb-2 p-3 rounded-lg border-l-4 ${n.severity === 'critical' ? 'bg-red-50 border-red-500' : 'bg-orange-50 border-orange-500'}`}>
+              <div className="flex justify-between items-start">
+                <span className="font-bold text-sm text-slate-800">{n.type}</span>
+                {veh && (
+                  <button
+                    onClick={() => { setNotifEditVehicle(veh); setShowNotifPanel(false); }}
+                    className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors"
+                  >
+                    <Palette size={10}/> Edit
+                  </button>
+                )}
+              </div>
+              <div className="text-xs text-slate-600 mt-1">Lorry: <strong>{n.vehicle}</strong></div>
+              <div className={`text-xs mt-1 font-medium ${n.severity === 'critical' ? 'text-red-600' : 'text-orange-600'}`}>
+                {n.daysLeft < 0 ? `Expired ${Math.abs(n.daysLeft)} days ago` : `Expires in ${n.daysLeft} days`}
+              </div>
             </div>
-            <div className="text-xs text-slate-600 mt-1">Lorry: <strong>{n.vehicle}</strong></div>
-            <div className={`text-xs mt-1 font-medium ${n.severity === 'critical' ? 'text-red-600' : 'text-orange-600'}`}>
-              {n.daysLeft < 0 ? `Expired ${Math.abs(n.daysLeft)} days ago` : `Expires in ${n.daysLeft} days`}
-            </div>
-          </div>
-        ))
+          );
+        })
       )}
     </div>
   </div>
@@ -754,6 +769,10 @@ if (tData) {
         <main className="flex-1 overflow-y-auto p-4 pb-24 md:pb-4">
           {renderView()}
         </main>
+        {/* DetailsModal triggered from notification panel */}
+        {notifEditVehicle && (
+          <DetailsModal data={notifEditVehicle} onClose={() => setNotifEditVehicle(null)} setVehicles={setVehicles} />
+        )}
 
 {/* --- MOBILE "MORE" MENU POPUP --- */}
         {showMobileMenu && (
@@ -799,7 +818,7 @@ if (tData) {
 
 // --- SUB-COMPONENTS (Views) ---
 
-const DashboardView = ({ vehicles, setVehicles, drivers, setDrivers, transactions, setTransactions, trips, setTrips, setCurrentView, handleFilterSelect, setHistoryLogs, currentUser }: any) => {
+const DashboardView = ({ vehicles, setVehicles, drivers, setDrivers, transactions, setTransactions, trips, setTrips, setCurrentView, handleFilterSelect, setHistoryLogs, currentUser, notifications = [] }: any) => {
   const [vehicleOrder, setVehicleOrder] = useState<number[]>([]);
   const [draggedId, setDraggedId] = useState<number | null>(null);
   const [dragOverId, setDragOverId] = useState<number | null>(null);
@@ -1218,6 +1237,7 @@ const dbTrip = {
               data={vehicle}
               onAction={(type) => openActionModal(type, vehicle)}
               onFilter={handleFilterSelect}
+              vehicleNotifs={notifications.filter((n: Notification) => n.vehicle === vehicle.regNumber)}
             />
           </div>
         ))}
@@ -2073,7 +2093,6 @@ const TripsView = ({ trips, setTrips, handleFilterSelect, handleDeleteTrip }: an
   };
 
   const filteredTrips = trips.filter((t: any) => {
-    if (String(t.billNo) === "0") return false;
     // Month dropdown takes priority over date range
     if (selectedMonth) return t.date && t.date.startsWith(selectedMonth);
     if (!startDate && !endDate) return true;
@@ -2152,7 +2171,30 @@ const TripsView = ({ trips, setTrips, handleFilterSelect, handleDeleteTrip }: an
         Number(trip.expense || 0);
 
       const profit = (Number(trip.tripTotal) || 0) - totalExpense;
- return (
+ const isAdvance = String(trip.billNo) === '0';
+      if (isAdvance) {
+        return (
+          <tr key={`${trip.id}-${index}`} className="bg-orange-50 hover:bg-orange-100 transition-colors border-l-4 border-orange-400">
+            <td className="px-4 py-3 text-center text-orange-400">—</td>
+            <td className="px-4 py-3 text-orange-700 font-bold">{trip.date}</td>
+            <td className="px-4 py-3 font-mono text-orange-500">ADV</td>
+            <td className="px-4 py-3 font-bold border-l border-r border-slate-100 text-blue-600">{trip.regNumber}</td>
+            <td className="px-4 py-3 text-orange-700">{trip.driverName}</td>
+            <td className="px-4 py-3 text-orange-600 font-bold" colSpan={5}>Driver Advance Payment</td>
+            <td className="px-4 py-3 text-slate-400">—</td>
+            <td className="px-4 py-3 font-bold text-orange-700">₹{Number(trip.advance).toLocaleString('en-IN')}</td>
+            <td className="px-4 py-3 text-slate-400" colSpan={7}>—</td>
+            <td className="px-4 py-3 font-bold text-orange-700 bg-orange-100">₹{Number(trip.advance).toLocaleString('en-IN')}</td>
+            <td className="px-4 py-3 text-slate-400 text-right">—</td>
+            <td className="px-4 py-3 text-center">
+              <button onClick={() => handleDeleteTrip(trip.id)} className="p-2 rounded bg-red-50 text-red-500 hover:bg-red-100 transition-colors" title="Delete Advance">
+                <Trash2 size={16} />
+              </button>
+            </td>
+          </tr>
+        );
+      }
+      return (
         <tr key={`${trip.id}-${index}`} className={`transition-colors ${!trip.billReceived ? 'bg-red-50 hover:bg-red-100 text-red-800' : 'hover:bg-slate-50'}`}>
           <td className="px-4 py-3 text-center">
             <button
@@ -2197,12 +2239,122 @@ const TripsView = ({ trips, setTrips, handleFilterSelect, handleDeleteTrip }: an
     </div>
   );
 };
-const DriversView = ({ drivers, setDrivers, trips, setTrips, currentUser }: any) => {
+const DriversView = ({ drivers, setDrivers, trips, setTrips, currentUser, vehicles }: any) => {
   const [isAdding, setIsAdding] = useState(false);
   const [selectedDriver, setSelectedDriver] = useState<Driver | null>(null);
   const [editingDriver, setEditingDriver] = useState<Driver | null>(null);
   const [editDriverForm, setEditDriverForm] = useState({ name: '', phone: '', license: '' });
   const [newDriver, setNewDriver] = useState({ name: "", phone: "", license: "", walletBalance: 0 });
+  const [advanceDriver, setAdvanceDriver] = useState<Driver | null>(null);
+  const [advanceForm, setAdvanceForm] = useState({ date: new Date().toISOString().split('T')[0], amount: '', vehicleReg: '' });
+  const [advanceSubmitting, setAdvanceSubmitting] = useState(false);
+
+  // Compute total net added per driver from active trips
+  const computeNetAdded = (driver: Driver) => {
+    const driverTrips = trips.filter((t: any) => t.driverName === driver.name);
+    return Math.round(driverTrips.reduce((sum: number, t: any) => {
+      const drPay = Number(t.driverTripPay) || 0;
+      const advance = Number(t.advance) || 0;
+      const luw = (Number(t.loadingCharge) || 0) + (Number(t.unloadingCharge) || 0) + (Number(t.weighbridgeCharge) || 0) + (Number(t.expense) || 0);
+      return sum + drPay - (advance - luw);
+    }, 0));
+  };
+
+  const handleAddAdvance = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!advanceDriver) return;
+    const amount = parseFloat(advanceForm.amount);
+    if (!amount || isNaN(amount)) { alert("Enter a valid amount"); return; }
+    if (!advanceForm.vehicleReg) { alert("Please select a vehicle number"); return; }
+    setAdvanceSubmitting(true);
+    try {
+      // 1. Insert into transactions → shows in Financial Overview
+      const { error: txError } = await supabase.from('transactions').insert([{
+        date: advanceForm.date,
+        time: new Date().toTimeString().slice(0,5),
+        vehicle_reg: advanceForm.vehicleReg,
+        type: 'Expense',
+        amount: amount,
+        category: 'Driver Advance',
+        description: `Advance to ${advanceDriver.name}`,
+        user_id: currentUser.id
+      }]);
+      if (txError) throw txError;
+
+      // 2. Update driver wallet balance
+      const { error: walletError } = await supabase.rpc('increment_wallet', { row_id: advanceDriver.id, amount: amount });
+      if (walletError) throw walletError;
+
+      // 3. Insert stub trip row (bill_no='0') → shows in Trip Logs & Driver Wallet page
+      const { data: newTripData, error: tripError } = await supabase.from('trips').insert([{
+        date: advanceForm.date,
+        bill_no: '0',
+        vehicle_reg: advanceForm.vehicleReg,
+        driver_id: advanceDriver.id,
+        from_loc: '',
+        to_loc: 'Advance',
+        contractor: '',
+        load_type: 'Advance',
+        net_weight: '0',
+        rate: 0,
+        trip_total: 0,
+        driver_trip_pay: 0,
+        advance: amount,
+        diesel_price: '0',
+        diesel_liters: '0',
+        loading_charge: '0',
+        unloading_charge: '0',
+        weighbridge_charge: '0',
+        commission_type: 'fixed',
+        commission_value: '0',
+        expense: 0,
+        status: 'active',
+        user_id: currentUser.id
+      }]).select().single();
+      if (tripError) throw tripError;
+
+      // 4. Update local trips state so it appears immediately in Trip Logs
+      if (newTripData) {
+        setTrips((prev: TripRecord[]) => [{
+          id: newTripData.id,
+          date: advanceForm.date,
+          billNo: '0',
+          regNumber: advanceForm.vehicleReg,
+          driverName: advanceDriver.name,
+          from: '',
+          to: 'Advance',
+          contractor: '',
+          loadType: 'Advance',
+          netWeight: '0',
+          expense: 0,
+          rate: 0,
+          tripTotal: 0,
+          driverTripPay: 0,
+          advance: String(amount),
+          dieselPrice: '0',
+          dieselLiters: '0',
+          loadingCharge: '0',
+          unloadingCharge: '0',
+          weighbridgeCharge: '0',
+          commissionType: 'fixed' as 'fixed',
+          commissionValue: '0',
+          fuelPaidDate: '',
+          creditedAmount: 0,
+          billReceived: false
+        }, ...prev]);
+      }
+
+      // 5. Update local driver wallet balance
+      setDrivers((prev: Driver[]) => prev.map(d => d.id === advanceDriver.id ? { ...d, walletBalance: d.walletBalance + amount } : d));
+      alert(`Advance of \u20b9${amount} recorded for ${advanceDriver.name}`);
+      setAdvanceDriver(null);
+      setAdvanceForm({ date: new Date().toISOString().split('T')[0], amount: '', vehicleReg: '' });
+    } catch (err: any) {
+      alert("Error: " + err.message);
+    } finally {
+      setAdvanceSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     if (editingDriver) {
@@ -2294,6 +2446,7 @@ const DriversView = ({ drivers, setDrivers, trips, setTrips, currentUser }: any)
                 <th className="px-6 py-4">Driver Name</th>
                 <th className="px-6 py-4">Phone Number</th>
                 <th className="px-6 py-4">License ID</th>
+                <th className="px-6 py-4 text-center text-orange-600">Advance</th>
                 <th className="px-6 py-4 text-right">Net Added Amount</th>
                 <th className="px-6 py-4 text-center">Actions</th>
               </tr>
@@ -2301,12 +2454,20 @@ const DriversView = ({ drivers, setDrivers, trips, setTrips, currentUser }: any)
    <tbody className="divide-y divide-slate-100">
               
               {drivers.map((driver: Driver) => {
-                const netAdded = -driver.walletBalance; 
+                const netAdded = computeNetAdded(driver);
                 return (
                   <tr key={driver.id} className="hover:bg-slate-50 transition-colors cursor-pointer" onClick={() => setSelectedDriver(driver)}>
                     <td className="px-6 py-4"><div className="font-bold text-slate-800">{driver.name}</div></td>
                     <td className="px-6 py-4 text-slate-600">{driver.phone}</td>
                     <td className="px-6 py-4 text-slate-600 font-mono uppercase">{driver.license}</td>
+                    <td className="px-6 py-4 text-center">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setAdvanceDriver(driver); }}
+                        className="flex items-center gap-1 bg-orange-50 hover:bg-orange-100 text-orange-600 px-3 py-1.5 rounded-md text-xs font-bold transition-all border border-orange-200 mx-auto"
+                      >
+                        <Plus size={12}/> Advance
+                      </button>
+                    </td>
                     <td className="px-6 py-4 text-right">
                       <span className={`py-1 px-3 rounded-full font-bold text-xs ${netAdded >= 0 ? 'bg-blue-50 text-blue-700' : 'bg-green-100 text-green-700'}`}>
                         ₹ {netAdded.toLocaleString('en-IN')}
@@ -2329,6 +2490,68 @@ const DriversView = ({ drivers, setDrivers, trips, setTrips, currentUser }: any)
           </table>
         </div>
       </div>
+
+      {/* ADVANCE MODAL */}
+      {advanceDriver && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl animate-in zoom-in-95 overflow-hidden">
+            <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-6 text-white flex justify-between items-center">
+              <div>
+                <h3 className="font-bold text-lg">Add Advance</h3>
+                <p className="text-orange-100 text-xs mt-0.5">{advanceDriver.name}</p>
+              </div>
+              <button onClick={() => setAdvanceDriver(null)} className="p-1.5 hover:bg-white/20 rounded-lg transition-colors"><X size={18}/></button>
+            </div>
+            <form onSubmit={handleAddAdvance} className="p-6 space-y-4">
+              <div>
+                <label className="text-xs font-bold text-slate-500 uppercase mb-1.5 block">Date</label>
+                <input
+                  type="date"
+                  required
+                  className="w-full border border-slate-300 p-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-orange-400"
+                  value={advanceForm.date}
+                  onChange={e => setAdvanceForm({ ...advanceForm, date: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-slate-500 uppercase mb-1.5 block">Vehicle Number *</label>
+                <select
+                  required
+                  className="w-full border border-slate-300 p-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-orange-400 bg-white font-bold"
+                  value={advanceForm.vehicleReg}
+                  onChange={e => setAdvanceForm({ ...advanceForm, vehicleReg: e.target.value })}
+                >
+                  <option value="">— Select Vehicle —</option>
+                  {vehicles.map((v: any) => (
+                    <option key={v.id} value={v.regNumber}>{v.regNumber}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="text-xs font-bold text-slate-500 uppercase mb-1.5 block">Advance Amount (₹)</label>
+                <input
+                  type="number"
+                  required
+                  min="1"
+                  placeholder="Enter amount"
+                  className="w-full border border-slate-300 p-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-orange-400 font-bold"
+                  value={advanceForm.amount}
+                  onChange={e => setAdvanceForm({ ...advanceForm, amount: e.target.value })}
+                />
+              </div>
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-3">
+                <p className="text-xs text-amber-700 font-medium">This advance will appear in Financial Overview, Trip Logs, and Driver Wallet. The amount will be deducted from the driver's Net Added calculation.</p>
+              </div>
+              <div className="flex gap-3 pt-1">
+                <button type="button" onClick={() => setAdvanceDriver(null)} className="flex-1 border border-slate-300 text-slate-600 py-3 rounded-xl font-bold text-sm hover:bg-slate-50 transition-all">Cancel</button>
+                <button type="submit" disabled={advanceSubmitting} className="flex-grow bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-xl font-bold text-sm shadow-md transition-all active:scale-95 flex items-center justify-center gap-2">
+                  {advanceSubmitting ? <RefreshCw size={14} className="animate-spin"/> : <Plus size={14}/>} Save Advance
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
  {selectedDriver && <DriverDetailsModal driver={selectedDriver} setDrivers={setDrivers} onClose={() => setSelectedDriver(null)} currentUser={currentUser} />}
       {isAdding && (<ModalWrapper title="Register Driver" onClose={() => setIsAdding(false)}><form onSubmit={handleAddDriver} className="space-y-4"><Input label="Name" value={newDriver.name} onChange={(e) => setNewDriver({...newDriver, name: e.target.value})} required /><Input label="Phone" value={newDriver.phone} onChange={(e) => setNewDriver({...newDriver, phone: e.target.value})} required /><Input label="License" value={newDriver.license} onChange={(e) => setNewDriver({...newDriver, license: e.target.value})} uppercase required /><button type="submit" className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold">Save Driver to Database</button></form></ModalWrapper>)}
 
@@ -2454,7 +2677,6 @@ const FinanceView = ({ transactions, drivers, trips, handleDeleteTrip }: any) =>
 
   // 1. FILTERING — month dropdown takes priority over date range
   const filteredTrips = trips.filter((t: any) => {
-    if (String(t.billNo) === "0") return false;
     if (selectedMonth) return t.date && t.date.startsWith(selectedMonth);
     if (!startDate && !endDate) return true;
     const tripDate = new Date(t.date);
@@ -2469,12 +2691,15 @@ const FinanceView = ({ transactions, drivers, trips, handleDeleteTrip }: any) =>
     return 0;
   });
 
-  // 2. CALCULATIONS (Rounded)
-  const totalRentRevenue = Math.round(filteredTrips.reduce((acc: number, trip: TripRecord) => acc + (Number(trip.tripTotal) || 0), 0));
-  const totalFuelLiters = Math.round(filteredTrips.reduce((acc: number, trip: TripRecord) => acc + (Number(trip.dieselLiters) || 0), 0));
+  // 2. CALCULATIONS (Rounded) — exclude advance-only rows (billNo=0) from revenue/expense totals
+  const realTrips = filteredTrips.filter((t: any) => String(t.billNo) !== "0");
+  const totalRentRevenue = Math.round(realTrips.reduce((acc: number, trip: TripRecord) => acc + (Number(trip.tripTotal) || 0), 0));
+  const totalFuelLiters = Math.round(realTrips.reduce((acc: number, trip: TripRecord) => acc + (Number(trip.dieselLiters) || 0), 0));
+  // Advance totals (for display in expense card)
+  const totalAdvancePaid = Math.round(filteredTrips.filter((t: any) => String(t.billNo) === "0").reduce((acc: number, t: any) => acc + (Number(t.advance) || 0), 0));
     
 const totalExpenses = Math.round(
-  filteredTrips.reduce((acc: number, trip: TripRecord) => {
+  realTrips.reduce((acc: number, trip: TripRecord) => {
     return (
       acc +
       (Number(trip.expense) || 0) +
@@ -2744,6 +2969,28 @@ const totalExpenses = Math.round(
     </tr>
   ) : (
     filteredTrips.map((trip: TripRecord, index: number) => {
+      // --- Special rendering for advance rows (billNo=0) ---
+      if (String(trip.billNo) === "0") {
+        const advAmt = Number(trip.advance) || 0;
+        return (
+          <tr key={`${trip.id}-${index}`} className="bg-orange-50 hover:bg-orange-100 transition-colors border-l-4 border-orange-400">
+            <td className="px-3 py-3 text-center no-print">—</td>
+            <td className="px-3 py-3 text-orange-700 font-bold">{trip.date}</td>
+            <td className="px-3 py-3 text-orange-500 font-mono">ADV</td>
+            <td className="px-3 py-3 font-bold text-blue-600">{trip.regNumber}</td>
+            <td className="px-3 py-3 text-orange-700">{trip.driverName}</td>
+            <td className="px-3 py-3 text-orange-600 font-bold" colSpan={5}>Driver Advance Payment</td>
+            <td className="px-3 py-3 text-slate-400">—</td>
+            <td className="px-3 py-3 font-bold text-orange-700">₹{advAmt.toLocaleString('en-IN')}</td>
+            <td className="px-3 py-3 text-slate-400" colSpan={7}>—</td>
+            <td className="px-3 py-3 font-bold text-orange-700 bg-orange-100">₹{advAmt.toLocaleString('en-IN')}</td>
+            <td className="px-3 py-3 text-slate-400">—</td>
+            <td className="px-3 py-3 text-center no-print">
+              <button onClick={() => handleDeleteTrip(trip.id)} className="p-1.5 rounded bg-red-50 text-red-500 hover:bg-red-100 transition-colors"><Trash2 size={14}/></button>
+            </td>
+          </tr>
+        );
+      }
       // --- 1. DEFINE VARIABLES BEFORE USE ---
       const drPay = Math.round(Number(trip.driverTripPay) || 0);
       const tripTotal = Math.round(Number(trip.tripTotal) || 0);
@@ -3106,13 +3353,28 @@ const handleRetrieveSettlement = async (log: WeeklyHistory) => {
 
 // --- HELPER COMPONENTS ---
 
-const VehicleCard = ({ data, onAction, onFilter }: { data: Vehicle, onAction: (type: string) => void, onFilter: (reg: string, view: string) => void }) => {
+const VehicleCard = ({ data, onAction, onFilter, vehicleNotifs = [] }: { data: Vehicle, onAction: (type: string) => void, onFilter: (reg: string, view: string) => void, vehicleNotifs?: Notification[] }) => {
+  const hasCritical = vehicleNotifs.some(n => n.severity === 'critical');
+  const hasWarning = vehicleNotifs.some(n => n.severity === 'warning');
+  const borderColor = hasCritical ? 'border-red-400' : hasWarning ? 'border-orange-400' : 'border-slate-200';
+
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+    <div className={`bg-white rounded-2xl shadow-sm border-2 overflow-hidden ${borderColor}`}>
+      {/* Notification alert strip */}
+      {vehicleNotifs.length > 0 && (
+        <div className={`px-4 py-2 flex flex-wrap gap-2 ${hasCritical ? 'bg-red-50' : 'bg-orange-50'}`}>
+          {vehicleNotifs.map(n => (
+            <span key={n.id} className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full ${n.severity === 'critical' ? 'bg-red-100 text-red-700 border border-red-200' : 'bg-orange-100 text-orange-700 border border-orange-200'}`}>
+              <Bell size={9}/>
+              {n.type}: {n.daysLeft < 0 ? `Expired ${Math.abs(n.daysLeft)}d ago` : `${n.daysLeft}d left`}
+            </span>
+          ))}
+        </div>
+      )}
       <div className="p-4 cursor-pointer hover:bg-slate-50 transition-colors" onClick={() => onAction('trip')}>
         <div className="flex justify-between items-start mb-3">
           <div className="flex items-center gap-3">
-             <div className="flex flex-col items-center justify-center w-12 h-12 rounded-xl border bg-slate-50 border-slate-100 text-slate-500"><Truck size={24} /></div>
+             <div className={`flex flex-col items-center justify-center w-12 h-12 rounded-xl border ${hasCritical ? 'bg-red-50 border-red-200 text-red-500' : hasWarning ? 'bg-orange-50 border-orange-200 text-orange-500' : 'bg-slate-50 border-slate-100 text-slate-500'}`}><Truck size={24} /></div>
              <div><h3 className="text-lg font-extrabold text-slate-800 hover:text-blue-600">{data.regNumber}</h3><div className="text-xs text-slate-500 font-medium">{data.location}</div></div>
           </div>
           <div className="flex gap-1">
@@ -3154,9 +3416,11 @@ const ModalWrapper = ({ title, children, onClose, headerContent }: any) => (
 
 const DetailsModal = ({ data, onClose, setVehicles }: any) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editForm, setEditForm] = useState(data.vehicleDetails);
+  const [editForm, setEditForm] = useState(data.vehicleDetails || {});
+  const [isSaving, setIsSaving] = useState(false);
 
   const handleUpdate = async () => {
+    setIsSaving(true);
     const { error } = await supabase
       .from('vehicles')
       .update({ details: editForm })
@@ -3169,74 +3433,113 @@ const DetailsModal = ({ data, onClose, setVehicles }: any) => {
       setIsEditing(false);
       alert("Vehicle updated successfully!");
     }
+    setIsSaving(false);
   };
 
-  const renderField = (label: string, key: string, type = "text") => (
+  const Field = ({ label, fieldKey, type = "text" }: { label: string; fieldKey: string; type?: string }) => (
     <div>
-      <span className="text-slate-500 font-semibold block text-[10px] uppercase">{label}</span>
+      <label className={`text-xs font-bold uppercase mb-1 block ${isEditing ? 'text-blue-600' : 'text-slate-500'}`}>{label}</label>
       {isEditing ? (
-        <input 
-          type={type} 
-          className="w-full border rounded p-1 text-sm bg-white" 
-          value={editForm[key] || ''} 
-          onChange={(e) => setEditForm({ ...editForm, [key]: e.target.value })} 
+        <input
+          type={type}
+          className="w-full border border-slate-300 p-2.5 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          value={editForm[fieldKey] || ''}
+          onChange={(e) => setEditForm({ ...editForm, [fieldKey]: e.target.value })}
         />
       ) : (
-        <span className="text-slate-800 font-medium">{editForm[key] || 'N/A'}</span>
+        <div className="text-sm font-semibold text-slate-800 bg-slate-50 px-3 py-2 rounded-lg border border-slate-100">
+          {editForm[fieldKey] || <span className="text-slate-300 italic">N/A</span>}
+        </div>
       )}
     </div>
   );
 
   return (
     <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-      <div className="bg-white w-full max-w-2xl rounded-xl shadow-2xl animate-in zoom-in-95 overflow-hidden flex flex-col max-h-[90vh]">
-        <div className="flex justify-between items-center p-5 border-b bg-slate-50">
-          <div>
-            <h3 className="font-bold text-lg text-slate-800">{data.regNumber}</h3>
-            <p className="text-xs text-slate-500">Technical & Compliance Records</p>
+      <div className="bg-white w-full max-w-lg rounded-xl shadow-2xl animate-in zoom-in-95 overflow-hidden flex flex-col max-h-[90vh]">
+
+        {/* Header — styled like Trip modal */}
+        <div className="flex justify-between items-center p-4 border-b border-slate-100 bg-slate-50 shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600">
+              <Truck size={18}/>
+            </div>
+            <div>
+              <h3 className="font-bold text-lg text-slate-800">{data.regNumber}</h3>
+              <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">Technical & Compliance Records</p>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <button 
-              onClick={() => isEditing ? handleUpdate() : setIsEditing(true)}
-              className={`px-4 py-1.5 rounded-lg text-xs font-bold shadow-sm transition-all ${isEditing ? 'bg-green-600 text-white' : 'bg-blue-100 text-blue-700'}`}
-            >
-              {isEditing ? 'SAVE CHANGES' : 'EDIT DETAILS'}
-            </button>
-            <button onClick={onClose} className="p-1.5 hover:bg-red-50 text-slate-400 hover:text-red-500 rounded"><X size={20}/></button>
+          <div className="flex items-center gap-2">
+            {isEditing ? (
+              <>
+                <button
+                  onClick={() => { setIsEditing(false); setEditForm(data.vehicleDetails || {}); }}
+                  className="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all"
+                >Cancel</button>
+                <button
+                  onClick={handleUpdate}
+                  disabled={isSaving}
+                  className="px-4 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white hover:bg-blue-700 shadow-sm transition-all"
+                >
+                  {isSaving ? 'Saving...' : 'SAVE CHANGES'}
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setIsEditing(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white hover:bg-blue-700 shadow-sm transition-all"
+              >
+                <Palette size={12}/> EDIT DETAILS
+              </button>
+            )}
+            <button onClick={onClose} className="p-1.5 hover:bg-red-50 text-slate-400 hover:text-red-500 rounded-lg transition-colors"><X size={20}/></button>
           </div>
         </div>
 
-        <div className="p-6 overflow-y-auto space-y-6">
-          {/* IDENTIFICATION */}
-          <div className="grid grid-cols-2 gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
-            {renderField("Model", "model")}
-            {renderField("Engine Number", "engineNo")}
-            {renderField("Chassis Number", "chassisNo")}
-            {renderField("Registering Authority", "registeringAuthority")}
+        <div className="p-5 overflow-y-auto space-y-5">
+
+          {/* Vehicle banner — matches Trip modal vehicle banner */}
+          <div className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-sm">
+            <ShieldCheck size={16} className="shrink-0"/>
+            <span className="text-xs font-bold uppercase tracking-wide">Registration:</span>
+            <span className="text-base font-extrabold tracking-widest">{data.regNumber}</span>
           </div>
 
-          {/* COMPLIANCE */}
-          <div className="space-y-4">
-            <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">Validity Dates</h4>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {renderField("Insurance Valid", "insuranceValidUpto", "date")}
-              {renderField("Fitness (FC)", "fitnessValidUpto", "date")}
-              {renderField("Road Tax", "roadTaxValidUpto", "date")}
-              {renderField("Green Tax", "greenTaxValidUpto", "date")}
-              {renderField("PUCC Valid", "puccValidUpto", "date")}
-              {renderField("Permit Valid", "permitValidUpto", "date")}
+          {/* IDENTIFICATION section */}
+          <div>
+            <h4 className="font-bold text-xs text-blue-600 uppercase mb-2">Identification</h4>
+            <div className="grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-lg border border-slate-100">
+              <Field label="Model" fieldKey="model" />
+              <Field label="Engine Number" fieldKey="engineNo" />
+              <Field label="Chassis Number" fieldKey="chassisNo" />
+              <Field label="Registering Authority" fieldKey="registeringAuthority" />
             </div>
           </div>
-          
-          <div className="p-4 bg-blue-50 rounded-xl border border-blue-100">
-             <h4 className="text-xs font-bold text-blue-700 uppercase mb-3">Insurance & National Permit</h4>
-             <div className="grid grid-cols-2 gap-4">
-               {renderField("Insurance Co.", "insuranceCompany")}
-               {renderField("Policy No.", "insurancePolicyNo")}
-               {renderField("NP Number", "nationalPermitNo")}
-               {renderField("NP Valid Upto", "nationalPermitValidUpto", "date")}
-             </div>
+
+          {/* VALIDITY DATES section */}
+          <div>
+            <h4 className="font-bold text-xs text-blue-600 uppercase mb-2">Validity Dates</h4>
+            <div className="grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-lg border border-slate-100">
+              <Field label="Insurance Valid" fieldKey="insuranceValidUpto" type="date" />
+              <Field label="Fitness (FC)" fieldKey="fitnessValidUpto" type="date" />
+              <Field label="Road Tax" fieldKey="roadTaxValidUpto" type="date" />
+              <Field label="Green Tax" fieldKey="greenTaxValidUpto" type="date" />
+              <Field label="PUCC Valid" fieldKey="puccValidUpto" type="date" />
+              <Field label="Permit Valid" fieldKey="permitValidUpto" type="date" />
+            </div>
           </div>
+
+          {/* INSURANCE & PERMIT section */}
+          <div>
+            <h4 className="font-bold text-xs text-blue-600 uppercase mb-2">Insurance & National Permit</h4>
+            <div className="grid grid-cols-2 gap-3 bg-blue-50 p-3 rounded-lg border border-blue-100">
+              <Field label="Insurance Co." fieldKey="insuranceCompany" />
+              <Field label="Policy No." fieldKey="insurancePolicyNo" />
+              <Field label="NP Number" fieldKey="nationalPermitNo" />
+              <Field label="NP Valid Upto" fieldKey="nationalPermitValidUpto" type="date" />
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -3580,7 +3883,7 @@ const calculatedNetAdded = Math.round(localWalletBalance + selectedTripsSum);
     {/* 5. Net Added (Result of New Formula) */}
     {/* 5. Net Added (Result of New Formula) */}
 <div className="bg-white p-4 rounded-xl border-l-4 border-l-indigo-600 shadow-md">
-    <div className="text-xs font-bold text-slate-400 uppercase">Net Added</div>
+    <div className="text-xs font-bold text-slate-400 uppercase">Total Net Added</div>
     <div className={`text-2xl font-bold ${selectedTripsSum >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
       ₹ {selectedTripsSum.toLocaleString('en-IN')}
     </div>
