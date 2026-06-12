@@ -9,7 +9,7 @@ import {
   Palette, Building2, CalendarDays, FileCheck, UserCircle, Receipt, 
   Calculator, Briefcase, Weight, LogOut, Lock, UserPlus, Printer, 
   Droplet, Filter, Calendar, Trash2, CheckSquare, CreditCard, Download,
-  Package, Square, CheckCircle2, Menu 
+  Package, Square, CheckCircle2, Menu, Gauge
 } from 'lucide-react';
 
 // --- 1. CONFIGURATION ---
@@ -662,6 +662,7 @@ if (tData) {
       case "fuel": return <FuelView {...props} />; 
       case "credited": return <AmountCreditedView {...props} />;
       case "driverHistory": return <DriverHistoryView {...props} />;
+      case "kilometer": return <KilometerView {...props} />;
       default: return <DashboardView {...props} />;
     }
   };
@@ -700,6 +701,7 @@ if (tData) {
           <SidebarItem icon={<CreditCard/>} label="Credited" active={currentView === "credited"} onClick={() => { setFilterReg(null); setCurrentView("credited"); }} /> 
           <SidebarItem icon={<Droplet/>} label="Fuel" active={currentView === "fuel"} onClick={() => { setFilterReg(null); setCurrentView("fuel"); }} />
           <SidebarItem icon={<History/>} label="Driver History" active={currentView === "driverHistory"} onClick={() => { setFilterReg(null); setCurrentView("driverHistory"); }} />
+          <SidebarItem icon={<Gauge/>} label="Kilometer" active={currentView === "kilometer"} onClick={() => { setFilterReg(null); setCurrentView("kilometer"); }} />
           <SidebarItem icon={<History/>} label="History" active={currentView === "history"} onClick={() => { setFilterReg(null); setCurrentView("history"); }} />
         </nav>
         <div className="p-4 border-t border-slate-800">
@@ -783,6 +785,9 @@ if (tData) {
              <button onClick={() => { setCurrentView("driverHistory"); setShowMobileMenu(false); }} className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-lg text-sm font-bold text-slate-700 w-full text-left">
         <History size={18} className="text-emerald-600"/> Driver History
       </button>
+             <button onClick={() => { setCurrentView("kilometer"); setShowMobileMenu(false); }} className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-lg text-sm font-bold text-slate-700 w-full text-left">
+                <Gauge size={18} className="text-indigo-600"/> Kilometer
+             </button>
              <button onClick={() => { setCurrentView("credited"); setShowMobileMenu(false); }} className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-lg text-sm font-bold text-slate-700 w-full text-left">
                 <CreditCard size={18} className="text-purple-600"/> Credited
              </button>
@@ -4150,6 +4155,329 @@ const DriverHistoryView = ({ trips, drivers }: any) => {
       </div>
     </div>
   );        
+};
+
+// --- KILOMETER VIEW ---
+
+const KilometerView = ({ vehicles, currentUser }: any) => {
+  const [kmRecords, setKmRecords] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [selectedVehicle, setSelectedVehicle] = useState<string | null>(null);
+
+  const [form, setForm] = useState({
+    date: new Date().toISOString().split('T')[0],
+    vehicle_reg: '',
+    km_entered: '',
+  });
+  const [formError, setFormError] = useState('');
+
+  const fetchRecords = async () => {
+    setLoading(true);
+    const { data } = await supabase
+      .from('km_records')
+      .select('*')
+      .eq('user_id', currentUser.id)
+      .order('date', { ascending: false });
+    if (data) setKmRecords(data);
+    setLoading(false);
+  };
+
+  useEffect(() => { fetchRecords(); }, []);
+
+  const getCumulativeTotal = (vehicleReg: string, upToRecordId: number): number => {
+    const vehicleRecords = kmRecords
+      .filter(r => r.vehicle_reg === vehicleReg)
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    let total = 0;
+    for (const r of vehicleRecords) {
+      total += Number(r.km_entered);
+      if (r.id === upToRecordId) break;
+    }
+    return total;
+  };
+
+  const handleSubmit = async () => {
+    setFormError('');
+    if (!form.vehicle_reg) { setFormError('Please select a vehicle.'); return; }
+    if (!form.km_entered || isNaN(Number(form.km_entered)) || Number(form.km_entered) <= 0) {
+      setFormError('Please enter a valid KM value greater than 0.'); return;
+    }
+    if (!form.date) { setFormError('Please select a date.'); return; }
+
+    const entryMonth = form.date.slice(0, 7);
+    const existing = kmRecords.find(r => r.vehicle_reg === form.vehicle_reg && r.date.startsWith(entryMonth));
+    if (existing) {
+      setFormError(`A KM entry for ${form.vehicle_reg} already exists for ${new Date(entryMonth + '-01').toLocaleString('default', { month: 'long', year: 'numeric' })}. Delete it first to re-enter.`);
+      return;
+    }
+
+    setSubmitting(true);
+    const { error } = await supabase.from('km_records').insert([{
+      user_id: currentUser.id,
+      date: form.date,
+      vehicle_reg: form.vehicle_reg,
+      km_entered: Number(form.km_entered),
+    }]);
+    setSubmitting(false);
+    if (error) { setFormError('Error saving: ' + error.message); return; }
+    setForm({ date: new Date().toISOString().split('T')[0], vehicle_reg: '', km_entered: '' });
+    setShowForm(false);
+    fetchRecords();
+  };
+
+  const handleDelete = async (id: number) => {
+    const { error } = await supabase.from('km_records').delete().eq('id', id);
+    if (!error) { setDeleteId(null); fetchRecords(); }
+    else alert('Error deleting: ' + error.message);
+  };
+
+  const handleDownloadCSV = (vehicleReg: string) => {
+    const records = kmRecords
+      .filter(r => r.vehicle_reg === vehicleReg)
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    if (records.length === 0) { alert('No data to download'); return; }
+    const headers = ['Date', 'Month', 'KM This Month', 'Total KM'];
+    const rows = records.map(r => {
+      const month = new Date(r.date).toLocaleString('default', { month: 'long', year: 'numeric' });
+      const total = getCumulativeTotal(r.vehicle_reg, r.id);
+      return [r.date, month, r.km_entered, total].join(',');
+    });
+    const blob = new Blob([[headers.join(','), ...rows].join('\n')], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `KM_Records_${vehicleReg}.csv`;
+    a.click();
+  };
+
+  // Records for the selected vehicle modal (ascending order for history table)
+  const selectedVehicleRecords = selectedVehicle
+    ? kmRecords
+        .filter(r => r.vehicle_reg === selectedVehicle)
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    : [];
+
+  return (
+    <div className="max-w-7xl mx-auto space-y-6">
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div>
+          <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2"><Gauge size={20} className="text-indigo-600"/> Kilometer Tracker</h2>
+          <p className="text-xs text-slate-500">Click any vehicle card to view monthly KM history</p>
+        </div>
+        <button onClick={() => { setShowForm(true); setFormError(''); }} className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-lg shadow transition-all">
+          <Plus size={16}/> Add KM Entry
+        </button>
+      </div>
+
+      {/* VEHICLE SUMMARY CARDS */}
+      {loading ? (
+        <div className="flex items-center justify-center py-16 text-slate-400">
+          <RefreshCw size={20} className="animate-spin mr-2"/> Loading...
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          {vehicles.map((v: any) => {
+            const vehicleRecs = kmRecords.filter(r => r.vehicle_reg === v.regNumber);
+            const totalKm = vehicleRecs.reduce((s: number, r: any) => s + Number(r.km_entered), 0);
+            const lastRecord = vehicleRecs.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
+            const entryCount = vehicleRecs.length;
+            return (
+              <button
+                key={v.id}
+                onClick={() => setSelectedVehicle(v.regNumber)}
+                className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:border-indigo-300 hover:shadow-md hover:bg-indigo-50/30 transition-all text-left group cursor-pointer"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <Truck size={13} className="text-indigo-400"/>
+                    <span className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wide truncate">{v.regNumber}</span>
+                  </div>
+                  <ChevronRight size={13} className="text-slate-300 group-hover:text-indigo-400 transition-colors flex-shrink-0"/>
+                </div>
+                <div className="text-2xl font-extrabold text-indigo-600 leading-tight">{totalKm.toLocaleString('en-IN')}</div>
+                <div className="text-[10px] text-slate-400 mt-0.5 font-medium">Total KM</div>
+                <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between">
+                  {lastRecord
+                    ? <span className="text-[10px] text-slate-500">Last: <span className="font-bold text-slate-600">{lastRecord.date}</span></span>
+                    : <span className="text-[10px] text-slate-400 italic">No entries yet</span>
+                  }
+                  <span className="text-[10px] text-indigo-400 font-bold">{entryCount} {entryCount === 1 ? 'entry' : 'entries'}</span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* VEHICLE HISTORY MODAL */}
+      {selectedVehicle && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col animate-in zoom-in-95">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-5 border-b border-slate-100 flex-shrink-0">
+              <div>
+                <h3 className="font-bold text-slate-800 flex items-center gap-2">
+                  <Gauge size={18} className="text-indigo-600"/>
+                  KM History — <span className="text-indigo-600">{selectedVehicle}</span>
+                </h3>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  {selectedVehicleRecords.length} {selectedVehicleRecords.length === 1 ? 'entry' : 'entries'} &nbsp;·&nbsp;
+                  Total: <span className="font-bold text-emerald-600">
+                    {kmRecords.filter(r => r.vehicle_reg === selectedVehicle).reduce((s, r) => s + Number(r.km_entered), 0).toLocaleString('en-IN')} KM
+                  </span>
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => handleDownloadCSV(selectedVehicle)}
+                  className="p-2 bg-green-50 text-green-600 rounded-lg border border-green-100 hover:bg-green-100 transition-colors"
+                  title="Download CSV"
+                >
+                  <Download size={16}/>
+                </button>
+                <button onClick={() => setSelectedVehicle(null)} className="p-2 hover:bg-slate-100 rounded-lg text-slate-400 transition-colors">
+                  <X size={18}/>
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Body — History Table */}
+            <div className="overflow-y-auto flex-1">
+              {selectedVehicleRecords.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-16 text-slate-400 gap-3">
+                  <Gauge size={32} className="text-slate-300"/>
+                  <div className="font-bold text-sm">No KM records for this vehicle</div>
+                  <button
+                    onClick={() => { setSelectedVehicle(null); setForm(f => ({ ...f, vehicle_reg: selectedVehicle })); setShowForm(true); setFormError(''); }}
+                    className="flex items-center gap-1.5 text-xs text-indigo-600 hover:underline font-bold"
+                  >
+                    <Plus size={13}/> Add first entry
+                  </button>
+                </div>
+              ) : (
+                <table className="w-full text-sm text-left">
+                  <thead className="bg-slate-800 text-slate-300 font-bold uppercase text-[10px] whitespace-nowrap sticky top-0">
+                    <tr>
+                      <th className="px-4 py-3">Date</th>
+                      <th className="px-4 py-3">Month</th>
+                      <th className="px-4 py-3 text-right text-yellow-300">KM This Month</th>
+                      <th className="px-4 py-3 text-right text-green-300 bg-slate-700">Total KM</th>
+                      <th className="px-4 py-3 text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 text-[11px] font-medium whitespace-nowrap">
+                    {selectedVehicleRecords.map(r => {
+                      const cumulativeTotal = getCumulativeTotal(r.vehicle_reg, r.id);
+                      const monthLabel = new Date(r.date).toLocaleString('default', { month: 'long', year: 'numeric' });
+                      return (
+                        <tr key={r.id} className="hover:bg-slate-50 transition-colors">
+                          <td className="px-4 py-3 font-bold text-slate-700">{r.date}</td>
+                          <td className="px-4 py-3 text-slate-500">{monthLabel}</td>
+                          <td className="px-4 py-3 text-right"><span className="text-yellow-700 font-bold">+{Number(r.km_entered).toLocaleString('en-IN')} km</span></td>
+                          <td className="px-4 py-3 text-right bg-slate-50"><span className="text-emerald-700 font-extrabold text-sm">{cumulativeTotal.toLocaleString('en-IN')} km</span></td>
+                          <td className="px-4 py-3 text-center">
+                            <button onClick={() => setDeleteId(r.id)} className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors" title="Delete"><Trash2 size={14}/></button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                  <tfoot className="bg-slate-100 border-t-2 border-slate-300 text-[11px] font-extrabold">
+                    <tr>
+                      <td colSpan={2} className="px-4 py-3 text-slate-600 uppercase">Total for {selectedVehicle}</td>
+                      <td className="px-4 py-3 text-right text-yellow-700">+{selectedVehicleRecords.reduce((s, r) => s + Number(r.km_entered), 0).toLocaleString('en-IN')} km</td>
+                      <td className="px-4 py-3 text-right text-emerald-700 bg-slate-200" colSpan={2}>
+                        {kmRecords.filter(r => r.vehicle_reg === selectedVehicle).reduce((s, r) => s + Number(r.km_entered), 0).toLocaleString('en-IN')} km (all time)
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 border-t border-slate-100 flex-shrink-0 flex justify-between items-center">
+              <button
+                onClick={() => { setSelectedVehicle(null); setForm(f => ({ ...f, vehicle_reg: selectedVehicle })); setShowForm(true); setFormError(''); }}
+                className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-lg shadow transition-all"
+              >
+                <Plus size={14}/> Add Entry for {selectedVehicle}
+              </button>
+              <button onClick={() => setSelectedVehicle(null)} className="px-4 py-2 text-sm font-bold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all">Close</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ADD FORM MODAL */}
+      {showForm && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md animate-in zoom-in-95">
+            <div className="flex items-center justify-between p-5 border-b border-slate-100">
+              <div>
+                <h3 className="font-bold text-slate-800 flex items-center gap-2"><Gauge size={18} className="text-indigo-600"/> Add KM Entry</h3>
+                <p className="text-xs text-slate-400 mt-0.5">One entry per vehicle per month</p>
+              </div>
+              <button onClick={() => setShowForm(false)} className="p-2 hover:bg-slate-100 rounded-lg text-slate-400"><X size={18}/></button>
+            </div>
+            <div className="p-5 space-y-4">
+              {formError && <div className="bg-red-50 border border-red-200 text-red-600 text-xs p-3 rounded-lg font-medium">{formError}</div>}
+              <div>
+                <label className="text-xs font-bold text-slate-500 uppercase mb-1 block">Date</label>
+                <input type="date" value={form.date} onChange={e => setForm({ ...form, date: e.target.value })} className="w-full border border-slate-300 p-2.5 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500"/>
+              </div>
+              <div>
+                <label className="text-xs font-bold text-slate-500 uppercase mb-1 block">Vehicle Number</label>
+                <select value={form.vehicle_reg} onChange={e => setForm({ ...form, vehicle_reg: e.target.value })} className="w-full border border-slate-300 p-2.5 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+                  <option value="">Select Vehicle</option>
+                  {vehicles.map((v: any) => <option key={v.id} value={v.regNumber}>{v.regNumber}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="text-xs font-bold text-slate-500 uppercase mb-1 block">KM Traveled This Month</label>
+                <input type="number" min="1" placeholder="e.g. 1200" value={form.km_entered} onChange={e => setForm({ ...form, km_entered: e.target.value })} className="w-full border border-slate-300 p-2.5 rounded-lg text-sm outline-none focus:ring-2 focus:ring-indigo-500"/>
+              </div>
+              {form.vehicle_reg && form.km_entered && !isNaN(Number(form.km_entered)) && (
+                <div className="bg-indigo-50 border border-indigo-100 rounded-lg p-3 text-xs">
+                  <span className="text-slate-500">Running total after this entry: </span>
+                  <span className="font-extrabold text-indigo-700">
+                    {(kmRecords.filter(r => r.vehicle_reg === form.vehicle_reg).reduce((s, r) => s + Number(r.km_entered), 0) + Number(form.km_entered)).toLocaleString('en-IN')} KM
+                  </span>
+                </div>
+              )}
+            </div>
+            <div className="p-5 border-t border-slate-100 flex gap-3 justify-end">
+              <button onClick={() => setShowForm(false)} className="px-4 py-2 text-sm font-bold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-all">Cancel</button>
+              <button onClick={handleSubmit} disabled={submitting} className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 text-white text-sm font-bold px-5 py-2 rounded-lg shadow transition-all">
+                {submitting ? <RefreshCw size={16} className="animate-spin"/> : <CheckCircle2 size={16}/>} Save Entry
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE CONFIRM MODAL */}
+      {deleteId !== null && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 animate-in zoom-in-95">
+            <h3 className="font-bold text-slate-800 mb-2">Delete Entry?</h3>
+            <p className="text-sm text-slate-500 mb-5">This will permanently remove this KM record and affect cumulative totals for this vehicle.</p>
+            <div className="flex gap-3 justify-end">
+              <button onClick={() => setDeleteId(null)} className="px-4 py-2 text-sm font-bold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50">Cancel</button>
+              <button onClick={() => handleDelete(deleteId)} className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white text-sm font-bold px-4 py-2 rounded-lg shadow transition-all">
+                <Trash2 size={14}/> Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
 };
 
 const ActionButton = ({ icon, label, color, onClick }: any) => <button onClick={onClick} className="flex flex-col items-center justify-center py-3 hover:bg-white active:bg-slate-100 transition-colors group"><div className={`${color} mb-1 transition-transform group-hover:scale-110`}>{icon}</div><span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide group-hover:text-slate-700">{label}</span></button>;
